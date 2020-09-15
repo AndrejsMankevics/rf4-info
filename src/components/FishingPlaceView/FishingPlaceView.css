@@ -1,0 +1,24 @@
+.place-view-wrapper {
+  display: flex;
+  flex-grow: 1;
+  margin: 3vw;
+}
+
+.place-view-wrapper.mobile {
+  flex-direction: column;
+}
+
+.fishing-map-wrapper {
+  position: relative;
+  text-align: center;
+  width: 40vw;
+  height: 40vw;
+  display: flex;
+  margin-right: 3vw;
+}
+
+.mobile .fishing-map-wrapper {
+  width: 94vw;
+  height: 94vw;
+  margin: 0 auto;
+}

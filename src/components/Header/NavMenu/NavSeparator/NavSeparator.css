@@ -1,0 +1,6 @@
+.nav-separator {
+  height: 26px;
+  margin-left: 12px;
+  margin-right: 12px;
+  border-left: 1px solid var(--main-border-color);
+}

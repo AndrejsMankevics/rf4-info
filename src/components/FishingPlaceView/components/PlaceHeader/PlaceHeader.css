@@ -1,0 +1,51 @@
+.place-header-wrapper {
+  position: sticky;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  background: var(--main-bg-light-color);
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding: 0 3vw;
+}
+
+.place-header-name {
+  font-family: 'Lobster', cursive;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.place-header-links-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.place-header-link {
+  position: relative;
+  cursor: pointer;
+  padding: 20px;
+  color: var(--main-text-light-color);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.place-header-link:hover {
+  color: var(--main-text-color);
+}
+
+.place-header-link.active:after {
+  /* border-bottom: 2px solid var(--brand-color); */
+  content: '';
+  background-color: var(--brand-color);
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}

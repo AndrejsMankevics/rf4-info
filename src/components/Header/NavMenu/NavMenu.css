@@ -1,0 +1,43 @@
+.navLinks {
+  display: flex;
+}
+
+.navLinks li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 50px;
+}
+
+.navLinks.mobile {
+  position: absolute;
+  right: -40%;
+  top: 54px;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  box-shadow: 0 4px 12px 0 hsla(0, 0%, 53.3%, 0.2);
+  transition: transform 0.5s ease-in;
+  z-index: 2;
+}
+
+.navLinks.mobile.active {
+  transform: translateX(-100%);
+}
+
+.navLinks.mobile li {
+  opacity: 0;
+  width: 100%;
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

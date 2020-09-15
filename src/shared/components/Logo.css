@@ -1,0 +1,16 @@
+.logo {
+  display: flex;
+}
+
+.logo .part-one {
+  width: 15px;
+  height: 28px;
+  margin-right: 2px;
+  fill: var(--brand-color);
+}
+
+.logo .part-two {
+  width: 76px;
+  height: 28px;
+  fill: #f7faf7;
+}

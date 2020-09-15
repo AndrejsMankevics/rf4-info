@@ -1,0 +1,21 @@
+nav {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  background-color: var(--main-header-color);
+  color: #e2e2e2;
+}
+
+.logo-wrapper {
+  margin-left: 25px;
+  margin-right: 20px;
+}
+
+.main-nav-buttons {
+  display: flex;
+}
+
+.navmenu-wrapper {
+  margin-right: 25px;
+  margin-left: auto;
+}

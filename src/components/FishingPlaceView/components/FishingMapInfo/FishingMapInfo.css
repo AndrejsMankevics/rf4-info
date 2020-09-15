@@ -1,0 +1,4 @@
+.map-info-wrapper {
+  flex-grow: 1;
+  background: var(--main-bg-light-color);
+}

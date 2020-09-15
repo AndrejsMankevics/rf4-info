@@ -1,0 +1,23 @@
+.burger {
+  cursor: pointer;
+}
+
+.burger div {
+  width: 20px;
+  height: 3px;
+  background-color: #e2e2e2;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.active .line1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.active .line2 {
+  opacity: 0;
+}
+
+.active .line3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
