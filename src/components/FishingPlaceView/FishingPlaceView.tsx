@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppContext from '../../shared/contexts/AppContext';
 import { FishingMapMarker, FishingPlace } from '../../shared/types';
 import FishingMap from './components/FishingMap/FishingMap';
-import FishingMapInfo from './components/FishingMapInfo/FishingMapInfo';
+import MarkerInfo from './components/MarkerInfo/MarkerInfo';
 import PlaceHeader from './components/PlaceHeader/PlaceHeader';
 import './FishingPlaceView.css';
 
@@ -14,7 +14,7 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
   const { isMobile } = React.useContext(AppContext);
 
   const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(
-    null
+    props.place.markers[0]
   );
 
   const selectMarker = (marker: FishingMapMarker | null) => {
@@ -37,7 +37,7 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         <div className="fishing-map-wrapper">
           <FishingMap place={props.place} onSelectMarker={selectMarker} />
         </div>
-        <FishingMapInfo selectedMarker={selectedMarker} />
+        <MarkerInfo marker={selectedMarker} />
       </div>
     </>
   );

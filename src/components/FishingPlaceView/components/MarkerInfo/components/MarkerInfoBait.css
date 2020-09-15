@@ -1,0 +1,7 @@
+.marker-info-bait-wrapper {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  border: 1px solid var(--main-border-color);
+}

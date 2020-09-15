@@ -1,15 +1,16 @@
 import React from 'react';
-import './App.css';
-import { useMediaQuery } from './shared/hooks/mediaQuery';
 import { BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
 import Header from './components/Header/Header';
 import { useRoutes } from './routes';
 import AppContext from './shared/contexts/AppContext';
+import { useMediaQuery } from './shared/hooks/mediaQuery';
 
 function App() {
   const routes = useRoutes(false);
 
   const mobile = useMediaQuery();
+  console.log(mobile);
 
   return (
     <AppContext.Provider value={{ isMobile: mobile }}>

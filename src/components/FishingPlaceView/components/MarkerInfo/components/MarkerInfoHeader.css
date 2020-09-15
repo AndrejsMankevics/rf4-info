@@ -1,0 +1,14 @@
+.marker-info-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.marker-info-header-name {
+  font-size: 24px;
+  letter-spacing: 5px;
+}
+
+.marker-info-header-coords {
+  font-size: 36px;
+}

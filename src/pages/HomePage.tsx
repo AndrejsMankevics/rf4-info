@@ -15,7 +15,10 @@ const HomePage: React.FC = () => {
         name: 'Лещ',
         x: 10,
         y: 44,
-        baits: [{ id: 1, name: 'Чесночное тесто', url: '' }, {}],
+        baits: [
+          { id: 1, name: 'Чесночное тесто', url: '' },
+          { id: 2, name: 'Творожное тесто', url: '' },
+        ],
       },
     ],
     url:

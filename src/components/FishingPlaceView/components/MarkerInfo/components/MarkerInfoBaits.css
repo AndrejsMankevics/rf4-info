@@ -1,0 +1,15 @@
+.marker-info-baits-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.marker-info-baits-wrapper .group-header {
+  text-transform: uppercase;
+}
+
+.marker-info-baits-wrapper .baits-container {
+  display: flex;
+  margin-top: 10px;
+}

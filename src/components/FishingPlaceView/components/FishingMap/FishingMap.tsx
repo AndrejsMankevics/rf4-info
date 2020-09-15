@@ -14,7 +14,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
 
   const [viewport] = useState({
     center: [props.place.height / 2, props.place.width / 2],
-    zoom: 3,
+    zoom: 1,
   } as Viewport);
 
   const bounds: LatLngBoundsLiteral = [
