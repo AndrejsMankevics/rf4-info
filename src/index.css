@@ -13,14 +13,23 @@ body,
 
 body {
   font-family: 'Open Sans', sans-serif;
+  color: var(--main-text-regular-color);
 }
 
 h1 {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--main-text-color);
 }
 
 h2 {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--main-text-color);
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
 }

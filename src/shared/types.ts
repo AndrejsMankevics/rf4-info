@@ -4,6 +4,8 @@ export interface FishingPlace {
   url: string;
   width: number;
   height: number;
+  offsetX: number;
+  offsetY: number;
   markers: FishingMapMarker[];
 }
 

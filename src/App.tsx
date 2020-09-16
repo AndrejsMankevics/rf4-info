@@ -10,7 +10,6 @@ function App() {
   const routes = useRoutes(false);
 
   const mobile = useMediaQuery();
-  console.log(mobile);
 
   return (
     <AppContext.Provider value={{ isMobile: mobile }}>

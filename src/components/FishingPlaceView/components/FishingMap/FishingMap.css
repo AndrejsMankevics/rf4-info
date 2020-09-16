@@ -12,3 +12,13 @@
   padding: 20px;
   z-index: 0;
 }
+
+.leaflet-popup-content {
+  margin: 0;
+  width: auto;
+  text-align: center;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}

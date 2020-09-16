@@ -7,6 +7,7 @@ import './MarkerInfo.css';
 
 interface MarkerInfoProps {
   marker: FishingMapMarker | null;
+  editable: boolean;
 }
 
 const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
@@ -16,7 +17,6 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
   return (
     <div className="map-info-wrapper">
       <MarkerInfoHeader marker={props.marker} />
-      <Hr />
       <MarkerInfoBaits baits={props.marker.baits} />
       <Hr />
     </div>

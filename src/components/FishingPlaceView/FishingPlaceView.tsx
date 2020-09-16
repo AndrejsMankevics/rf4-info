@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AppContext from '../../shared/contexts/AppContext';
+import { conditionalClass } from '../../shared/helpers/classes.helpers';
 import { FishingMapMarker, FishingPlace } from '../../shared/types';
 import FishingMap from './components/FishingMap/FishingMap';
 import MarkerInfo from './components/MarkerInfo/MarkerInfo';
@@ -21,11 +22,6 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
     setSelectedMarker(marker);
   };
 
-  const placeViewWrapperClasses = ['place-view-wrapper'];
-  if (isMobile) {
-    placeViewWrapperClasses.push('mobile');
-  }
-
   return (
     <>
       <PlaceHeader
@@ -33,11 +29,13 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         links={['Точки', 'Вся рыба', 'Цены в магазине', 'Кафе', 'Ремонт']}
         activeLink="Точки"
       />
-      <div className={placeViewWrapperClasses.join(' ')}>
+      <div
+        className={conditionalClass(['place-view-wrapper'], 'mobile', isMobile)}
+      >
         <div className="fishing-map-wrapper">
           <FishingMap place={props.place} onSelectMarker={selectMarker} />
         </div>
-        <MarkerInfo marker={selectedMarker} />
+        <MarkerInfo marker={selectedMarker} editable={false} />
       </div>
     </>
   );

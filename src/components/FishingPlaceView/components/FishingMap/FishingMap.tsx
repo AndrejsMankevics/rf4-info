@@ -1,6 +1,6 @@
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import React, { useState } from 'react';
-import { ImageOverlay, Map, Marker, Viewport } from 'react-leaflet';
+import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
 import './FishingMap.css';
 
@@ -37,8 +37,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         minZoom={2}
         maxZoom={4}
         doubleClickZoom={false}
-        // onclick={(event) => this.addMarker(event)}
-        // onmousemove={(event) => this.updateMousePos(event)}
+        onclick={(event) => props.onSelectMarker(null)}
         scrollWheelZoom={false}
         whenReady={() => whenReady()}
       >
@@ -46,14 +45,20 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         {props.place.markers.map((marker, index) => {
           return (
             <Marker
-              position={[marker.y, marker.x]}
+              position={[
+                marker.y - props.place.offsetY,
+                marker.x - props.place.offsetX,
+              ]}
               key={index}
-              onclick={() => props.onSelectMarker(marker)}
+              onpopupopen={() => props.onSelectMarker(marker)}
               onpopupclose={() => props.onSelectMarker(null)}
             >
               {/* <Tooltip permanent={true} direction={'auto'}>
                 {Math.round(marker.x)}:{Math.round(marker.y)}
               </Tooltip> */}
+              <Popup closeButton={false}>
+                {Math.round(marker.x)}:{Math.round(marker.y)}
+              </Popup>
             </Marker>
           );
         })}
