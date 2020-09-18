@@ -1,10 +1,10 @@
 import * as React from 'react';
 import FishingPlaceView from '../components/FishingPlaceView/FishingPlaceView';
-import { FishingPlace } from '../shared/types';
+import { FishingMapMarker, FishingPlace } from '../shared/types';
 import './HomePage.css';
 
 const HomePage: React.FC = () => {
-  const [place] = React.useState<FishingPlace>({
+  const [place, setPlace] = React.useState<FishingPlace>({
     id: 1,
     name: 'оз. Куори',
     width: 90,
@@ -33,30 +33,24 @@ const HomePage: React.FC = () => {
     ],
     url: 'assets/places/kuori.png',
   });
-  // const [place] = React.useState({
-  //   id: 1,
-  //   name: 'Старый Острог',
-  //   width: 80,
-  //   height: 80,
-  //   markers: [
-  //     {
-  //       id: 1,
-  //       name: 'Лещ',
-  //       x: 10,
-  //       y: 44,
-  //       baits: [
-  //         { id: 1, name: 'Чесночное тесто', url: '' },
-  //         { id: 2, name: 'Творожное тесто', url: '' },
-  //       ],
-  //     },
-  //   ],
-  //   url:
-  //     'https://rf4game.ru/forum/uploads/monthly_2017_08/Ostrog-Karta.jpg.ea890f64cb925307f592162f996775a4.jpg',
-  // } as FishingPlace);
+
+  const onMarkerEditHandle = (marker: FishingMapMarker) => {
+    const markers = place.markers.filter((m) => m.id !== marker.id);
+    setPlace({
+      ...place,
+      markers: [
+        ...markers,
+        {
+          ...marker,
+          id: marker.id || markers[markers.length - 1].id + 1,
+        },
+      ],
+    });
+  };
 
   return (
     <>
-      <FishingPlaceView place={place} />
+      <FishingPlaceView place={place} onMarkerEdit={onMarkerEditHandle} />
     </>
   );
 };

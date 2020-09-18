@@ -24,10 +24,8 @@
     ]
   },
   "dependencies": {
-    "leaflet": "^1.7.1",
-    "react-leaflet": "^2.7.0"
-  },
-  "devDependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -35,12 +33,15 @@
     "@types/node": "^12.12.55",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
     "@types/react-leaflet": "^2.5.2",
+    "@types/react-router-dom": "^5.1.5",
+    "leaflet": "^1.7.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "typescript": "^3.7.5"
-  }
+  },
+  "devDependencies": {}
 }

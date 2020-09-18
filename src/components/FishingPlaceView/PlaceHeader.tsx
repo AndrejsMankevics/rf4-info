@@ -1,6 +1,6 @@
 import React from 'react';
-import AppContext from '../../../../shared/contexts/AppContext';
-import { conditionalClass } from '../../../../shared/helpers/classes.helpers';
+import AppContext from '../../shared/contexts/AppContext';
+import { conditionalClass } from '../../shared/helpers/classes.helpers';
 import './PlaceHeader.css';
 
 interface PlaceHeader {

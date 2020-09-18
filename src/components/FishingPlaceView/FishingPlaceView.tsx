@@ -4,21 +4,25 @@ import { conditionalClass } from '../../shared/helpers/classes.helpers';
 import { FishingMapMarker, FishingPlace } from '../../shared/types';
 import FishingMap from './components/FishingMap/FishingMap';
 import MarkerInfo from './components/MarkerInfo/MarkerInfo';
-import PlaceHeader from './components/PlaceHeader/PlaceHeader';
 import './FishingPlaceView.css';
+import PlaceHeader from './PlaceHeader';
 
 interface FishingPlaceViewProps {
   place: FishingPlace;
+  onMarkerEdit: (marker: FishingMapMarker) => void;
 }
 
 const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
   const { isMobile } = React.useContext(AppContext);
 
-  const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(
-    props.place.markers[0]
-  );
+  const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(props.place.markers[0]);
 
-  const selectMarker = (marker: FishingMapMarker | null) => {
+  const selectMarkerHandle = (marker: FishingMapMarker | null) => {
+    setSelectedMarker(marker);
+  };
+
+  const onMarkerEditHandle = (marker: FishingMapMarker) => {
+    props.onMarkerEdit(marker);
     setSelectedMarker(marker);
   };
 
@@ -29,13 +33,11 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         links={['Точки', 'Вся рыба', 'Цены в магазине', 'Кафе', 'Ремонт']}
         activeLink="Точки"
       />
-      <div
-        className={conditionalClass(['place-view-wrapper'], 'mobile', isMobile)}
-      >
+      <div className={conditionalClass(['place-view-wrapper'], 'mobile', isMobile)}>
         <div className="fishing-map-wrapper">
-          <FishingMap place={props.place} onSelectMarker={selectMarker} />
+          <FishingMap place={props.place} onSelectMarker={selectMarkerHandle} />
         </div>
-        <MarkerInfo marker={selectedMarker} editable={false} />
+        <MarkerInfo marker={selectedMarker} onMarkerEdit={onMarkerEditHandle} />
       </div>
     </>
   );

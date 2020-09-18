@@ -1,11 +1,30 @@
 .marker-info-header-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding-bottom: 50px;
 }
 
 .marker-info-header-content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  word-break: break-word;
+}
+
+.marker-info-header-actions {
+  flex-shrink: 0;
+}
+
+.marker-info-form-wrapper {
+  display: flex;
+}
+
+.marker-info-form-wrapper .coordinate {
+  width: 50px;
+  min-width: 40px;
+  padding-right: 10px;
+}
+
+.marker-info-form-wrapper .name {
+  flex-grow: 1;
 }
