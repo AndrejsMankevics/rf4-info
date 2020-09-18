@@ -37,7 +37,7 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         <div className="fishing-map-wrapper">
           <FishingMap place={props.place} onSelectMarker={selectMarkerHandle} />
         </div>
-        <MarkerInfo marker={selectedMarker} onMarkerEdit={onMarkerEditHandle} />
+        <MarkerInfo marker={selectedMarker} place={props.place} onMarkerEdit={onMarkerEditHandle} />
       </div>
     </>
   );

@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "оз. Куори",
+    "width": 90,
+    "height": 90,
+    "offsetX": 55,
+    "offsetY": 55,
+    "markers": [
+      {
+        "id": 1,
+        "name": "Лещ. Много трофеев.",
+        "x": 67,
+        "y": 100,
+        "baits": [
+          {
+            "id": 1,
+            "name": "Чесночное тесто",
+            "url": "assets/baits/testo_chesnochnoe.png"
+          },
+          {
+            "id": 2,
+            "name": "Творожное тесто",
+            "url": "assets/baits/testo_tvorozhnoe.png"
+          }
+        ]
+      }
+    ],
+    "url": "assets/places/kuori.png"
+  }
+]

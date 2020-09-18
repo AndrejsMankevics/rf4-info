@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Чесночное тесто",
+    "url": "assets/baits/testo_chesnochnoe.png"
+  },
+  {
+    "id": 2,
+    "name": "Творожное тесто",
+    "url": "assets/baits/testo_tvorozhnoe.png"
+  }
+]

@@ -4,11 +4,12 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
-import { FishingMapMarker } from '../../../../../shared/types';
+import { FishingMapMarker, FishingPlace } from '../../../../../shared/types';
 import './MarkerInfoHeader.css';
 
 interface MarkerInfoHeaderProps {
   marker: FishingMapMarker;
+  place: FishingPlace;
   editableMarker: Partial<FishingMapMarker>;
   isEditable: boolean;
   onValueChange: (field: string, value: any) => void;
@@ -23,31 +24,67 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
     props.onValueChange(event.target.name, event.target.value);
   };
 
+  const validateCoordXField = (): boolean => {
+    return (
+      !props.editableMarker.x ||
+      !Number(props.editableMarker.x) ||
+      Number(props.editableMarker.x) > props.place.width + props.place.offsetX ||
+      Number(props.editableMarker.x) < props.place.offsetX
+    );
+  };
+
+  const validateCoordYField = (): boolean => {
+    return (
+      !props.editableMarker.y ||
+      !Number(props.editableMarker.y) ||
+      Number(props.editableMarker.y) > props.place.height + props.place.offsetY ||
+      Number(props.editableMarker.y) < props.place.offsetY
+    );
+  };
+
+  const validateNameField = (): boolean => {
+    return !props.editableMarker.name || String(props.editableMarker.name).length > 200;
+  };
+
   return (
     <div className="marker-info-header-wrapper">
       <div className="marker-info-header-content">
         {props.isEditable ? (
           <>
-            <form className="marker-info-form-wrapper" autoComplete="off">
+            <form className="marker-info-form-wrapper" autoComplete="off" onSubmit={() => props.onSaveChanges()}>
+              <div className="coords-wrapper">
+                <TextField
+                  required
+                  className="coordinate"
+                  name="x"
+                  value={props.editableMarker.x}
+                  label="X"
+                  size="small"
+                  variant="outlined"
+                  error={validateCoordXField()}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  className="coordinate"
+                  name="y"
+                  value={props.editableMarker.y}
+                  label="Y"
+                  size="small"
+                  variant="outlined"
+                  error={validateCoordYField()}
+                  onChange={handleChange}
+                />
+              </div>
               <TextField
-                className="coordinate"
-                name="x"
-                value={props.editableMarker.x}
-                label="X"
-                onChange={handleChange}
-              />
-              <TextField
-                className="coordinate"
-                name="y"
-                value={props.editableMarker.y}
-                label="Y"
-                onChange={handleChange}
-              />
-              <TextField
+                required
                 className="name"
                 name="name"
+                fullWidth={true}
                 value={props.editableMarker.name}
-                label="Название"
+                label="Название точки"
+                multiline={true}
+                error={validateNameField()}
                 onChange={handleChange}
               />
             </form>
@@ -65,7 +102,11 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
         {props.isEditable ? (
           <>
             <Tooltip title="Сохранить">
-              <IconButton component="span" onClick={() => props.onSaveChanges()}>
+              <IconButton
+                component="span"
+                disabled={validateCoordXField() || validateCoordYField() || validateNameField()}
+                onClick={() => props.onSaveChanges()}
+              >
                 <DoneIcon />
               </IconButton>
             </Tooltip>

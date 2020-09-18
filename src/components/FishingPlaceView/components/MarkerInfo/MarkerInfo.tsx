@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Hr from '../../../../shared/components/Hr';
-import { FishingMapMarker } from '../../../../shared/types';
+import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
 import MarkerInfoBaits from './components/MarkerInfoBaits';
 import MarkerInfoHeader from './components/MarkerInfoHeader';
 import './MarkerInfo.css';
 
 interface MarkerInfoProps {
   marker: FishingMapMarker | null;
+  place: FishingPlace;
   onMarkerEdit: (marker: FishingMapMarker) => void;
 }
 
@@ -48,6 +49,7 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
     <div className="map-info-wrapper">
       <MarkerInfoHeader
         marker={props.marker}
+        place={props.place}
         editableMarker={editableMarker}
         isEditable={isEditable}
         onValueChange={onValueChangeHandle}
