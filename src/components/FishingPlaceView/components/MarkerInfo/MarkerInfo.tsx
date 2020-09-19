@@ -58,7 +58,7 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
         onCancelEdit={onCancelEditHandle}
       />
       <MarkerInfoBaits
-        baits={editableMarker.baits || []}
+        baits={isEditable ? editableMarker.baits || [] : props.marker.baits}
         isEditable={isEditable}
         onChange={(baits) => onValueChangeHandle('baits', baits)}
       />

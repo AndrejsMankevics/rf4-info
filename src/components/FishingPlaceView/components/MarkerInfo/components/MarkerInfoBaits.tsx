@@ -18,7 +18,14 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
   const [selectedBaits, setSelectedBaits] = useState<Bait[]>([]);
 
   useEffect(() => {
-    setSelectedBaits(baits.filter((b) => props.baits.includes(b.id)));
+    const newValue = props.baits.reduce((acc, id) => {
+      const found = baits.find((b) => b.id === id);
+      if (found) {
+        acc.push(found);
+      }
+      return acc;
+    }, [] as Bait[]);
+    setSelectedBaits(newValue);
   }, [baits, props.baits]);
 
   const handleAdd = (bait: Bait) => {

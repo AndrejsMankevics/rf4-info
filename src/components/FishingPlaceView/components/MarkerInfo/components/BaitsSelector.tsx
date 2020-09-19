@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       width: 100,
+      height: 150,
     },
   })
 );
