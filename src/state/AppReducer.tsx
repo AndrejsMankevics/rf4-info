@@ -1,6 +1,7 @@
 import { Action, AppState } from './types';
 
 export const initialAppState: AppState = {
+  isMobile: false,
   baits: [],
   places: [],
 };
@@ -8,6 +9,12 @@ export const initialAppState: AppState = {
 const appReducer = (state: AppState, action: Action): AppState => {
   console.log(action);
   switch (action.type) {
+    case 'SET_IS_MOBILE':
+      return {
+        ...state,
+        isMobile: action.payload.isMobile,
+      };
+
     case 'SET_BAITS':
       return {
         ...state,

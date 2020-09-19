@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import FishingPlaceView from '../components/FishingPlaceView/FishingPlaceView';
 import If from '../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../shared/types';

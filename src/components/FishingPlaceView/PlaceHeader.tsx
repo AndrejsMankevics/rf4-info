@@ -1,6 +1,6 @@
 import React from 'react';
-import AppContext from '../../shared/contexts/AppContext';
 import { conditionalClass } from '../../shared/helpers/classes.helpers';
+import { useAppStateValue } from '../../state/AppStateProvider';
 import './PlaceHeader.css';
 
 interface PlaceHeader {
@@ -10,24 +10,15 @@ interface PlaceHeader {
 }
 
 const PlaceHeader: React.FC<PlaceHeader> = (props) => {
-  const { isMobile } = React.useContext(AppContext);
+  const [{ isMobile }] = useAppStateValue();
 
   return (
-    <div
-      className={conditionalClass(['place-header-wrapper'], 'mobile', isMobile)}
-    >
+    <div className={conditionalClass('place-header-wrapper', 'mobile', isMobile)}>
       <h2 className="place-header-name">{props.name}</h2>
       <div className="place-header-links-wrapper">
         {props.links.map((link, index) => {
           return (
-            <div
-              className={conditionalClass(
-                ['place-header-link'],
-                'active',
-                link === props.activeLink
-              )}
-              key={index}
-            >
+            <div className={conditionalClass('place-header-link', 'active', link === props.activeLink)} key={index}>
               {link}
             </div>
           );

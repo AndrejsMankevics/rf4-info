@@ -14,7 +14,7 @@ export interface FishingMapMarker {
   x: number;
   y: number;
   name: string;
-  baits: Bait[];
+  baits: number[];
 }
 
 export interface Bait {

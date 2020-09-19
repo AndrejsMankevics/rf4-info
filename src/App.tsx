@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import { useRoutes } from './routes';
-import AppContext from './shared/contexts/AppContext';
 import { useMediaQuery } from './shared/hooks/mediaQuery';
 import { useAppStateValue } from './state/AppStateProvider';
 
@@ -12,6 +11,9 @@ function App() {
   const routes = useRoutes(false);
 
   const mobile = useMediaQuery();
+  useEffect(() => {
+    dispatch({ type: 'SET_IS_MOBILE', payload: { isMobile: mobile } });
+  }, [mobile, dispatch]);
 
   useEffect(() => {
     fetch('mock/baits.json')
@@ -28,14 +30,12 @@ function App() {
   }, [dispatch]);
 
   return (
-    <AppContext.Provider value={{ isMobile: mobile }}>
-      <div className="app-wrapper">
-        <Router>
-          <Header />
-          <div className="router-container">{routes}</div>
-        </Router>
-      </div>
-    </AppContext.Provider>
+    <div className="app-wrapper">
+      <Router>
+        <Header />
+        <div className="router-container">{routes}</div>
+      </Router>
+    </div>
   );
 }
 

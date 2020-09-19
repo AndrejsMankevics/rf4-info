@@ -1,0 +1,9 @@
+.add-bait-wrapper {
+  position: relative;
+  display: flex;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  border: 1px solid var(--main-border-color);
+  border-radius: 8px;
+}

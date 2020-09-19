@@ -13,7 +13,6 @@ interface MarkerInfoProps {
 
 const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
-
   const [editableMarker, setEditableMarker] = useState<Partial<FishingMapMarker>>(props.marker || {});
 
   const onStartEditHandle = () => {
@@ -27,7 +26,6 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
     if (!!editableMarker.id && editableMarker.baits && editableMarker.name && editableMarker.x && editableMarker.y) {
       setIsEditable(false);
       props.onMarkerEdit(editableMarker as FishingMapMarker);
-      setEditableMarker(props.marker || {});
     }
   };
 
@@ -40,6 +38,7 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
       ...editableMarker,
       [field]: value,
     });
+    console.log(editableMarker);
   };
 
   if (!props.marker) {
@@ -58,7 +57,11 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
         onSaveChanges={onSaveChangesHandle}
         onCancelEdit={onCancelEditHandle}
       />
-      <MarkerInfoBaits baits={props.marker.baits} />
+      <MarkerInfoBaits
+        baits={editableMarker.baits || []}
+        isEditable={isEditable}
+        onChange={(baits) => onValueChangeHandle('baits', baits)}
+      />
       <Hr />
     </div>
   );

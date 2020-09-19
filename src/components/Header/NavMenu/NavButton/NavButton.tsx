@@ -1,6 +1,6 @@
-import * as React from 'react';
-import './NavButton.css';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './NavButton.css';
 
 interface NavButtonProps {
   label: string;

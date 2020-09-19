@@ -9,10 +9,7 @@ interface BurgerProps {
 
 const Burger: React.FC<BurgerProps> = (props) => {
   return (
-    <div
-      className={conditionalClass(['burger'], 'active', props.active)}
-      onClick={() => props.onToggle()}
-    >
+    <div className={conditionalClass('burger', 'active', props.active)} onClick={() => props.onToggle()}>
       <div className="line1"></div>
       <div className="line2"></div>
       <div className="line3"></div>

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import './NavMenu.css';
+import React, { useState } from 'react';
+import { useAppStateValue } from '../../../state/AppStateProvider';
 import Burger from './Burger/Burger';
 import NavButton from './NavButton/NavButton';
-import AppContext from '../../../shared/contexts/AppContext';
+import './NavMenu.css';
 
 const NavMenu: React.FC = () => {
-  const { isMobile } = useContext(AppContext);
+  const [{ isMobile }] = useAppStateValue();
 
   const state = {
     navLinks: [
@@ -43,25 +43,16 @@ const NavMenu: React.FC = () => {
           return (
             <li
               style={{
-                animation: activeBurger
-                  ? `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`
-                  : undefined,
+                animation: activeBurger ? `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s` : undefined,
               }}
               key={index}
             >
-              <NavButton
-                key={index}
-                label={link.label}
-                navLink={link.navLink}
-                onClick={onNavLinkClick}
-              ></NavButton>
+              <NavButton key={index} label={link.label} navLink={link.navLink} onClick={onNavLinkClick}></NavButton>
             </li>
           );
         })}
       </ul>
-      {isMobile ? (
-        <Burger active={activeBurger} onToggle={toggleActive} />
-      ) : null}
+      {isMobile ? <Burger active={activeBurger} onToggle={toggleActive} /> : null}
     </>
   );
 };

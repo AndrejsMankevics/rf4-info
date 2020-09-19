@@ -1,13 +1,26 @@
 .marker-info-bait-wrapper {
   position: relative;
   display: flex;
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-  border: 1px solid var(--main-border-color);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
+.marker-info-bait-wrapper.view {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.marker-info-bait-wrapper.select {
+  cursor: pointer;
+}
+
+.marker-info-bait-wrapper img,
 .marker-info-bait-wrapper .bait-description {
+  border-radius: 8px;
+}
+
+.marker-info-bait-wrapper.view .bait-description {
   position: absolute;
   display: flex;
   width: 100%;
@@ -24,10 +37,23 @@
   transition: opacity 0.2s ease-in;
 }
 
-.marker-info-bait-wrapper .bait-description:hover {
+.marker-info-bait-wrapper.view .bait-description:hover {
   opacity: 1;
 }
 
-.marker-info-bait-wrapper.mobile .bait-description:active {
+.marker-info-bait-wrapper.view.mobile .bait-description:active {
   opacity: 1;
+}
+
+.remove-bait-btn-wrapper {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 12px;
+  background: white;
+  opacity: 0.5;
+}
+
+.remove-bait-btn-wrapper:hover {
+  opacity: 0.8;
 }

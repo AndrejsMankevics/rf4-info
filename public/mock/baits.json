@@ -8,5 +8,55 @@
     "id": 2,
     "name": "Творожное тесто",
     "url": "assets/baits/testo_tvorozhnoe.png"
+  },
+  {
+    "id": 3,
+    "name": "Капустный лист",
+    "url": "assets/baits/kapustniy_list.png"
+  },
+  {
+    "id": 4,
+    "name": "Каша манная",
+    "url": "assets/baits/kasha_mannaya.png"
+  },
+  {
+    "id": 5,
+    "name": "Горошек",
+    "url": "assets/baits/goroshek.png"
+  },
+  {
+    "id": 6,
+    "name": "Зёрна кукурузы",
+    "url": "assets/baits/zerna_kukuruzy.png"
+  },
+  {
+    "id": 7,
+    "name": "Картофельный кубик",
+    "url": "assets/baits/kartofelniy_kubik.png"
+  },
+  {
+    "id": 8,
+    "name": "Каша перловая",
+    "url": "assets/baits/kasha_perlovaya.png"
+  },
+  {
+    "id": 9,
+    "name": "Каша гороховая",
+    "url": "assets/baits/kasha_gorohovaya.png"
+  },
+  {
+    "id": 10,
+    "name": "Каша кукурузная",
+    "url": "assets/baits/kasha_kukuruznaya.png"
+  },
+  {
+    "id": 11,
+    "name": "Сырный кубик",
+    "url": "assets/baits/syrny_kubik.png"
+  },
+  {
+    "id": 12,
+    "name": "Кусочки рыбы",
+    "url": "assets/baits/kusochki_ryby.png"
   }
 ]
