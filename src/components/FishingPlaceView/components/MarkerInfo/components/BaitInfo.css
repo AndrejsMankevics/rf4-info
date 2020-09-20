@@ -1,0 +1,52 @@
+.bait-info-paper {
+  width: 100px;
+  height: 150px;
+  background: linear-gradient(#5c5c5c33, var(--main-bg-color));
+}
+
+.bait-info-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  text-align: center;
+}
+
+.bait-info-wrapper.selectable {
+  cursor: pointer;
+}
+
+.bait-info-wrapper.selectable:hover {
+  box-shadow: 6px 6px 6px 1px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.bait-info-wrapper img {
+  border-radius: 4px 4px 0 0;
+  flex-shrink: 0;
+}
+
+.bait-info-wrapper .bait-description {
+  flex-grow: 1;
+  display: flex;
+  margin: 6px;
+  margin-top: 0;
+  font-size: 12px;
+  border-top: 1px solid var(--main-text-color);
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-bait-btn-wrapper {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border-radius: 12px;
+  background: white;
+  opacity: 0.5;
+}
+
+.remove-bait-btn-wrapper:hover {
+  opacity: 0.8;
+}

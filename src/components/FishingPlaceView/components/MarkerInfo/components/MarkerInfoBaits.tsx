@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import If from '../../../../../shared/components/If';
 import { Bait } from '../../../../../shared/types';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
-import MarkerInfoAddBait from './MarkerInfoAddBait';
-import MarkerInfoBait from './MarkerInfoBait';
+import BaitsGrid from './BaitsGrid';
 import './MarkerInfoBaits.css';
 
 interface MarkerInfoBaitsProps {
@@ -42,20 +40,13 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
     <div className="marker-info-baits-wrapper">
       <h2 className="group-header">Наживки</h2>
       <div className="baits-container">
-        {selectedBaits.map((bait) => {
-          return (
-            <MarkerInfoBait
-              type="view"
-              removable={props.isEditable}
-              bait={bait}
-              key={bait.id}
-              onRemove={() => handleRemove(bait)}
-            />
-          );
-        })}
-        <If condition={props.isEditable}>
-          <MarkerInfoAddBait baits={baits} onAdd={handleAdd} />
-        </If>
+        <BaitsGrid
+          baits={selectedBaits}
+          removable={props.isEditable}
+          onRemove={handleRemove}
+          addOption={props.isEditable}
+          onAdd={handleAdd}
+        ></BaitsGrid>
       </div>
     </div>
   );
