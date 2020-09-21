@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Hr from '../../../../shared/components/Hr';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
 import MarkerInfoBaits from './components/MarkerInfoBaits';
@@ -14,6 +14,10 @@ interface MarkerInfoProps {
 const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [editableMarker, setEditableMarker] = useState<Partial<FishingMapMarker>>(props.marker || {});
+
+  useEffect(() => {
+    setIsEditable(false);
+  }, [props.marker]);
 
   const onStartEditHandle = () => {
     setEditableMarker(props.marker || {});

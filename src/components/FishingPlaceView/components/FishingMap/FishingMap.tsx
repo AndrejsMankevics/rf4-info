@@ -1,7 +1,8 @@
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import React, { useState } from 'react';
-import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
+import { ImageOverlay, LayersControl, Map, Marker, Popup, Viewport } from 'react-leaflet';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
+import MapCoords from './components/MapCoords';
 import './FishingMap.css';
 
 interface FishingMapProps {
@@ -45,23 +46,30 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         {props.place.markers.map((marker, index) => {
           return (
             <Marker
-              position={[
-                marker.y - props.place.offsetY,
-                marker.x - props.place.offsetX,
-              ]}
+              position={[marker.y - props.place.offsetY, marker.x - props.place.offsetX]}
               key={index}
               onpopupopen={() => props.onSelectMarker(marker)}
               onpopupclose={() => props.onSelectMarker(null)}
             >
-              {/* <Tooltip permanent={true} direction={'auto'}>
-                {Math.round(marker.x)}:{Math.round(marker.y)}
-              </Tooltip> */}
               <Popup closeButton={false}>
                 {Math.round(marker.x)}:{Math.round(marker.y)}
               </Popup>
             </Marker>
           );
         })}
+
+        <MapCoords place={props.place} />
+
+        <LayersControl position="topright">
+          <LayersControl.Overlay name="Feature group">
+            {/* <FeatureGroup color="purple">
+              <Popup>
+                <span>Popup in FeatureGroup</span>
+              </Popup>
+              <Circle center={[51.51, -0.06]} radius={200} />
+            </FeatureGroup> */}
+          </LayersControl.Overlay>
+        </LayersControl>
       </Map>
     </div>
   );

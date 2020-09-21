@@ -66,6 +66,7 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
           scroll="paper"
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
+          transitionDuration={{ enter: 200, exit: 0 }}
         >
           <DialogTitle id="scroll-dialog-title">Выбор наживки</DialogTitle>
           <DialogContent dividers={true}>
