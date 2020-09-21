@@ -1,3 +1,4 @@
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Bait } from '../../../../../shared/types';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
@@ -13,6 +14,8 @@ interface MarkerInfoBaitsProps {
 const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
   const [{ baits }] = useAppStateValue();
 
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
   const [selectedBaits, setSelectedBaits] = useState<Bait[]>([]);
 
   useEffect(() => {
@@ -27,6 +30,7 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
   }, [baits, props.baits]);
 
   const handleAdd = (bait: Bait) => {
+    setDialogOpen(false);
     const newValue = [...selectedBaits, bait];
     props.onChange(newValue.map((b) => b.id));
   };
@@ -34,6 +38,14 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
   const handleRemove = (bait: Bait) => {
     const newValue = selectedBaits.filter((b) => b.id !== bait.id);
     props.onChange(newValue.map((b) => b.id));
+  };
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
   };
 
   return (
@@ -45,8 +57,25 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
           removable={props.isEditable}
           onRemove={handleRemove}
           addOption={props.isEditable}
-          onAdd={handleAdd}
+          onAddClick={handleOpenDialog}
         ></BaitsGrid>
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          maxWidth="md"
+          scroll="paper"
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+        >
+          <DialogTitle id="scroll-dialog-title">Выбор наживки</DialogTitle>
+          <DialogContent dividers={true}>
+            <BaitsGrid
+              baits={baits.filter((b) => !props.baits.includes(b.id))}
+              selectable={true}
+              onSelect={handleAdd}
+            ></BaitsGrid>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
