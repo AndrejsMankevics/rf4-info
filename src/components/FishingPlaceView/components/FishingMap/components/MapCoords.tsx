@@ -15,19 +15,18 @@ class MapCoords extends MapControl<MapCoordsProps> {
       this.panelDiv.innerHTML = `<h2><span>${Math.round(
         ev.latlng.lng + props.place.offsetX
       )}</span>&nbsp;<span>:${Math.round(ev.latlng.lat + props.place.offsetY)}</span></h2>`;
-      console.log(this.panelDiv.innerHTML);
     });
   }
   panelDiv: any;
 
   createLeafletElement(opts: MapCoordsProps) {
-    const MapInfo = L.Control.extend({
+    const MapCoords = L.Control.extend({
       onAdd: () => {
         this.panelDiv = L.DomUtil.create('div', 'coords-panel-wrapper');
         return this.panelDiv;
       },
     });
-    return new MapInfo({ position: 'bottomleft' });
+    return new MapCoords({ position: 'bottomleft' });
   }
 
   componentDidMount() {

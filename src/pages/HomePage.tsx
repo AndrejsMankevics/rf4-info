@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
     setSelectedPlace(places && places[0]);
   }, [places]);
 
-  const onMarkerEditHandle = (marker: FishingMapMarker) => {
+  const handleMarkerEdit = (marker: FishingMapMarker) => {
     if (selectedPlace) {
       const markers = selectedPlace.markers.filter((m) => m.id !== marker.id);
       setSelectedPlace({
@@ -31,10 +31,24 @@ const HomePage: React.FC = () => {
     }
   };
 
+  const handleMarkerDelete = (id: number) => {
+    if (selectedPlace) {
+      const markers = selectedPlace.markers.filter((m) => m.id !== id);
+      setSelectedPlace({
+        ...selectedPlace,
+        markers,
+      });
+    }
+  };
+
   return (
     <>
       <If condition={!!selectedPlace}>
-        <FishingPlaceView place={selectedPlace as FishingPlace} onMarkerEdit={onMarkerEditHandle} />
+        <FishingPlaceView
+          place={selectedPlace as FishingPlace}
+          onMarkerEdit={handleMarkerEdit}
+          onMarkerDelete={handleMarkerDelete}
+        />
       </If>
     </>
   );

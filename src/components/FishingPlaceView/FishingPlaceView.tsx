@@ -10,6 +10,7 @@ import PlaceHeader from './PlaceHeader';
 interface FishingPlaceViewProps {
   place: FishingPlace;
   onMarkerEdit: (marker: FishingMapMarker) => void;
+  onMarkerDelete: (id: number) => void;
 }
 
 const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
@@ -21,9 +22,14 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
     setSelectedMarker(marker);
   };
 
-  const onMarkerEditHandle = (marker: FishingMapMarker) => {
+  const handleMarkerEdit = (marker: FishingMapMarker) => {
     props.onMarkerEdit(marker);
     setSelectedMarker(marker);
+  };
+
+  const handleMarkerDelete = (id: number) => {
+    props.onMarkerDelete(id);
+    setSelectedMarker(null);
   };
 
   return (
@@ -37,7 +43,12 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         <div className="fishing-map-wrapper">
           <FishingMap place={props.place} onSelectMarker={selectMarkerHandle} />
         </div>
-        <MarkerInfo marker={selectedMarker} place={props.place} onMarkerEdit={onMarkerEditHandle} />
+        <MarkerInfo
+          marker={selectedMarker}
+          place={props.place}
+          onMarkerEdit={handleMarkerEdit}
+          onMarkerDelete={handleMarkerDelete}
+        />
       </div>
     </>
   );

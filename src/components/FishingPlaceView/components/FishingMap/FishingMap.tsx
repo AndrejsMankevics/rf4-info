@@ -1,6 +1,9 @@
-import { CRS, LatLngBoundsLiteral } from 'leaflet';
+import { IconButton, Tooltip } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { CRS, LatLngBoundsLiteral, LeafletMouseEvent } from 'leaflet';
 import React, { useState } from 'react';
-import { ImageOverlay, LayersControl, Map, Marker, Popup, Viewport } from 'react-leaflet';
+import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
+import Control from 'react-leaflet-control';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
 import MapCoords from './components/MapCoords';
 import './FishingMap.css';
@@ -17,7 +20,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
     center: [props.place.height / 2, props.place.width / 2],
     zoom: 1,
   } as Viewport);
-
+  const [addModeEnabled, setAddModeEnabled] = useState<boolean>(false);
   const bounds: LatLngBoundsLiteral = [
     [0, 0],
     [props.place.height, props.place.width],
@@ -25,6 +28,25 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
 
   const whenReady = () => {
     mapRef?.current?.leafletElement.fitBounds(bounds);
+  };
+
+  const handleAddIconClick = () => {
+    setAddModeEnabled(true);
+  };
+
+  const handleMapClick = (event: LeafletMouseEvent) => {
+    if (addModeEnabled) {
+      props.onSelectMarker({
+        baits: [],
+        id: Math.random(), // TODO(A): allow to take id as 0 to notify that new marker was created
+        name: '',
+        x: Math.round(event.latlng.lng) + props.place.offsetX,
+        y: Math.round(event.latlng.lat) + props.place.offsetY,
+      });
+      setAddModeEnabled(false);
+    } else {
+      props.onSelectMarker(null);
+    }
   };
 
   return (
@@ -38,7 +60,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         minZoom={2}
         maxZoom={4}
         doubleClickZoom={false}
-        onclick={(event) => props.onSelectMarker(null)}
+        onclick={handleMapClick}
         scrollWheelZoom={false}
         whenReady={() => whenReady()}
       >
@@ -59,17 +81,15 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         })}
 
         <MapCoords place={props.place} />
-
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="Feature group">
-            {/* <FeatureGroup color="purple">
-              <Popup>
-                <span>Popup in FeatureGroup</span>
-              </Popup>
-              <Circle center={[51.51, -0.06]} radius={200} />
-            </FeatureGroup> */}
-          </LayersControl.Overlay>
-        </LayersControl>
+        <Control position="topright">
+          <div className="custom-panel-wrapper">
+            <Tooltip title="Добавить">
+              <IconButton component="span" onClick={handleAddIconClick} size="small">
+                <AddIcon fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </Control>
       </Map>
     </div>
   );
