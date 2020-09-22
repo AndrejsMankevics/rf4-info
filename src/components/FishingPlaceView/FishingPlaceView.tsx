@@ -17,19 +17,32 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
   const [{ isMobile }] = useAppStateValue();
 
   const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(props.place.markers[0]);
+  const [newMarker, setNewMarker] = useState<FishingMapMarker | null>(null);
 
   const selectMarkerHandle = (marker: FishingMapMarker | null) => {
     setSelectedMarker(marker);
   };
 
   const handleMarkerEdit = (marker: FishingMapMarker) => {
+    if (marker.id === 0) {
+      // reset markers selections since we have just created a new one
+      setNewMarker(null);
+      setSelectedMarker(null);
+    } else {
+      setSelectedMarker(marker);
+    }
     props.onMarkerEdit(marker);
-    setSelectedMarker(marker);
   };
 
   const handleMarkerDelete = (id: number) => {
     props.onMarkerDelete(id);
+    setNewMarker(null);
     setSelectedMarker(null);
+  };
+
+  const handleSetNewMarker = (marker: FishingMapMarker | null) => {
+    setNewMarker(marker);
+    setSelectedMarker(marker);
   };
 
   return (
@@ -41,7 +54,12 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
       />
       <div className={conditionalClass('place-view-wrapper', 'mobile', isMobile)}>
         <div className="fishing-map-wrapper">
-          <FishingMap place={props.place} onSelectMarker={selectMarkerHandle} />
+          <FishingMap
+            place={props.place}
+            onSelectMarker={selectMarkerHandle}
+            newMarker={newMarker}
+            onSetNewMarker={handleSetNewMarker}
+          />
         </div>
         <MarkerInfo
           marker={selectedMarker}
