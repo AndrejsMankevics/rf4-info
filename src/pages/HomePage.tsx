@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
           ...markers,
           {
             ...marker,
-            id: marker.id || markers[markers.length - 1].id + 1,
+            id: marker.id || (markers[markers.length - 1]?.id || 0) + 1,
           },
         ],
       });
