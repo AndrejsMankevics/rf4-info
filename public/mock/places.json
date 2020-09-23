@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "kuori",
     "name": "оз. Куори",
     "width": 90,
     "height": 90,
@@ -15,6 +15,26 @@
         "baits": [1, 2]
       }
     ],
-    "url": "assets/places/kuori.png"
+    "mapUrl": "/assets/places/kuori.png",
+    "selectorUrl": "/assets/places/kuori_selector.jpg"
+  },
+  {
+    "id": "ostrog",
+    "name": "оз. Старый Острог",
+    "width": 80,
+    "height": 80,
+    "offsetX": 0,
+    "offsetY": 0,
+    "markers": [
+      {
+        "id": 1,
+        "name": "Лещ. Много трофеев.",
+        "x": 10,
+        "y": 44,
+        "baits": [1, 2]
+      }
+    ],
+    "mapUrl": "/assets/places/ostrog.jpg",
+    "selectorUrl": "/assets/places/ostrog_selector.jpg"
   }
 ]

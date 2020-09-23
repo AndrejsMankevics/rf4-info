@@ -83,7 +83,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           scrollWheelZoom={false}
           whenReady={() => whenReady()}
         >
-          <ImageOverlay url={props.place.url} bounds={bounds} />
+          <ImageOverlay url={props.place.mapUrl} bounds={bounds} />
           {(props.newMarker ? [...props.place.markers, props.newMarker] : props.place.markers).map((marker, index) => {
             return (
               <Marker

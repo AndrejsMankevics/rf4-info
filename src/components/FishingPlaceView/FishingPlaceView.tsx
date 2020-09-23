@@ -35,7 +35,9 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
   };
 
   const handleMarkerDelete = (id: number) => {
-    props.onMarkerDelete(id);
+    if (id !== 0) {
+      props.onMarkerDelete(id);
+    }
     setNewMarker(null);
     setSelectedMarker(null);
   };

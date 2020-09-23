@@ -1,0 +1,27 @@
+.place-selector-wrapper {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  margin: 10px;
+}
+
+.place-selector-wrapper .place-name {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+  transition: all 0.2s ease-in;
+}
+
+.place-selector-wrapper .place-name:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+}

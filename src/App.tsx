@@ -16,13 +16,13 @@ function App() {
   }, [mobile, dispatch]);
 
   useEffect(() => {
-    fetch('mock/baits.json')
+    fetch('/mock/baits.json')
       .then((response) => response.json())
       .then((baits) => {
         dispatch({ type: 'SET_BAITS', payload: { baits } });
       });
 
-    fetch('mock/places.json')
+    fetch('/mock/places.json')
       .then((response) => response.json())
       .then((places) => {
         dispatch({ type: 'SET_PLACES', payload: { places } });
