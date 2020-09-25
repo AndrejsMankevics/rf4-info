@@ -11,7 +11,8 @@ export interface FishingPlace {
 }
 
 export interface FishingMapMarker {
-  id: number;
+  id: string;
+  placeId: string;
   x: number;
   y: number;
   name: string;

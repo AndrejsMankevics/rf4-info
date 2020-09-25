@@ -13,6 +13,7 @@ import { markerAddIcon, markerIcon } from './icons';
 
 interface FishingMapProps {
   place: FishingPlace;
+  markers: FishingMapMarker[];
   newMarker: FishingMapMarker | null;
   onSelectMarker: (marker: FishingMapMarker | null) => void;
   onSetNewMarker: (marker: FishingMapMarker | null) => void;
@@ -44,7 +45,8 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
     if (addModeEnabled) {
       props.onSetNewMarker({
         baits: [],
-        id: 0,
+        id: '',
+        placeId: props.place.id,
         name: '',
         x: Math.round(event.latlng.lng) + props.place.offsetX,
         y: Math.round(event.latlng.lat) + props.place.offsetY,
@@ -84,11 +86,11 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           whenReady={() => whenReady()}
         >
           <ImageOverlay url={props.place.mapUrl} bounds={bounds} />
-          {(props.newMarker ? [...props.place.markers, props.newMarker] : props.place.markers).map((marker, index) => {
+          {(props.newMarker ? [...props.markers, props.newMarker] : props.markers).map((marker, index) => {
             return (
               <Marker
                 position={[marker.y - props.place.offsetY, marker.x - props.place.offsetX]}
-                icon={marker.id === 0 ? markerAddIcon : markerIcon}
+                icon={!marker.id ? markerAddIcon : markerIcon}
                 key={index}
                 onpopupopen={() => handleSelectMarker(marker)}
                 onpopupclose={() => props.onSelectMarker(null)}

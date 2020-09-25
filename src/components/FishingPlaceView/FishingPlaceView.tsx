@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { db } from '../../firebase';
 import { conditionalClass } from '../../shared/helpers/classes.helpers';
 import { FishingMapMarker, FishingPlace } from '../../shared/types';
 import { useAppStateValue } from '../../state/AppStateProvider';
@@ -9,34 +10,43 @@ import PlaceHeader from './PlaceHeader';
 
 interface FishingPlaceViewProps {
   place: FishingPlace;
-  onMarkerEdit: (marker: FishingMapMarker) => void;
-  onMarkerDelete: (id: number) => void;
 }
 
 const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
   const [{ isMobile }] = useAppStateValue();
 
-  const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(props.place.markers[0]);
+  const [markers, setMarkers] = useState<FishingMapMarker[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(null);
   const [newMarker, setNewMarker] = useState<FishingMapMarker | null>(null);
+
+  useEffect(() => {
+    db.collection('markers')
+      .where('placeId', '==', props.place.id)
+      .onSnapshot((snapshot) => {
+        setMarkers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as FishingMapMarker[]);
+      });
+  }, [props.place]);
 
   const selectMarkerHandle = (marker: FishingMapMarker | null) => {
     setSelectedMarker(marker);
   };
 
   const handleMarkerEdit = (marker: FishingMapMarker) => {
-    if (marker.id === 0) {
+    if (!marker.id) {
       // reset markers selections since we have just created a new one
       setNewMarker(null);
       setSelectedMarker(null);
+      const { id, ...rest } = marker;
+      db.collection('markers').add(rest);
     } else {
       setSelectedMarker(marker);
+      db.collection('markers').doc(marker.id).set(marker);
     }
-    props.onMarkerEdit(marker);
   };
 
-  const handleMarkerDelete = (id: number) => {
-    if (id !== 0) {
-      props.onMarkerDelete(id);
+  const handleMarkerDelete = (id: string) => {
+    if (!!id) {
+      db.collection('markers').doc(id).delete();
     }
     setNewMarker(null);
     setSelectedMarker(null);
@@ -58,6 +68,7 @@ const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
         <div className="fishing-map-wrapper">
           <FishingMap
             place={props.place}
+            markers={markers}
             onSelectMarker={selectMarkerHandle}
             newMarker={newMarker}
             onSetNewMarker={handleSetNewMarker}
