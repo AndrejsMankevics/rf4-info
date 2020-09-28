@@ -6,9 +6,9 @@ import BaitsGrid from './BaitsGrid';
 import './MarkerInfoBaits.css';
 
 interface MarkerInfoBaitsProps {
-  baits: number[];
+  baits: string[];
   isEditable: boolean;
-  onChange: (baits: number[]) => void;
+  onChange: (baits: string[]) => void;
 }
 
 const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {

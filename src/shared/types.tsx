@@ -16,11 +16,11 @@ export interface FishingMapMarker {
   x: number;
   y: number;
   name: string;
-  baits: number[];
+  baits: string[];
 }
 
 export interface Bait {
-  id: number;
+  id: string;
   name: string;
   url: string;
 }

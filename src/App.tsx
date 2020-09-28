@@ -20,23 +20,14 @@ function App() {
     db.collection('places')
       .get()
       .then((ref) => {
-        dispatch({ type: 'SET_PLACES', payload: { places: ref.docs.map((doc) => doc.data()) } });
-      });
-    // db.collection('places').onSnapshot((snapshot) => {
-    //   dispatch({ type: 'SET_PLACES', payload: { places: snapshot.docs.map((doc) => doc.data()) } });
-    // });
-
-    fetch('/mock/baits.json')
-      .then((response) => response.json())
-      .then((baits) => {
-        dispatch({ type: 'SET_BAITS', payload: { baits } });
+        dispatch({ type: 'SET_PLACES', payload: { places: ref.docs.map((doc) => ({ ...doc.data(), id: doc.id })) } });
       });
 
-    // fetch('/mock/places.json')
-    //   .then((response) => response.json())
-    //   .then((places) => {
-    //     dispatch({ type: 'SET_PLACES', payload: { places } });
-    //   });
+    db.collection('baits')
+      .get()
+      .then((ref) => {
+        dispatch({ type: 'SET_BAITS', payload: { baits: ref.docs.map((doc) => ({ ...doc.data(), id: doc.id })) } });
+      });
   }, [dispatch]);
 
   return (
