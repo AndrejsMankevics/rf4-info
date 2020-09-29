@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
-import { db } from './firebase';
+import { auth, db } from './firebase';
 import { useRoutes } from './routes';
 import { useMediaQuery } from './shared/hooks/mediaQuery';
 import { useAppStateValue } from './state/AppStateProvider';
@@ -17,6 +17,22 @@ function App() {
   }, [mobile, dispatch]);
 
   useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      console.log('THE USER IS >>> ', authUser);
+
+      if (authUser) {
+        dispatch({
+          type: 'SET_USER',
+          payload: { user: authUser },
+        });
+      } else {
+        dispatch({
+          type: 'SET_USER',
+          payload: { user: null },
+        });
+      }
+    });
+
     db.collection('places')
       .get()
       .then((ref) => {

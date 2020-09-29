@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { auth } from '../../../firebase';
 import { useAppStateValue } from '../../../state/AppStateProvider';
 import Burger from './Burger/Burger';
 import NavButton from './NavButton/NavButton';
@@ -6,16 +7,33 @@ import './NavMenu.css';
 
 const NavMenu: React.FC = () => {
   const [{ isMobile }] = useAppStateValue();
+  const [{ user }] = useAppStateValue();
 
-  const state = {
-    navLinks: [
-      { id: 1, label: 'Home', navLink: '/home' },
-      { id: 2, label: 'Register', navLink: '/register' },
-      { id: 3, label: 'Log In', navLink: '/login' },
-      { id: 4, label: 'Projects', navLink: '/home' },
-    ],
-  };
+  const [navLinks, setNavLinks] = useState<any[]>([]);
   const [activeBurger, setActiveBurger] = useState(false);
+
+  useEffect(() => {
+    setNavLinks(
+      user
+        ? [
+            { id: 1, label: 'Home', navLink: '/home' },
+            { id: 2, label: 'Projects', navLink: '/home' },
+            {
+              id: 5,
+              label: 'Logout',
+              command: () => {
+                if (user) {
+                  auth.signOut();
+                }
+              },
+            },
+          ]
+        : [
+            { id: 3, label: 'Register', navLink: '/register' },
+            { id: 4, label: 'Log In', navLink: '/login' },
+          ]
+    );
+  }, [user]);
 
   const toggleActive = () => {
     setActiveBurger(!activeBurger);
@@ -39,7 +57,7 @@ const NavMenu: React.FC = () => {
   return (
     <>
       <ul className={navLinksClasses.join(' ')}>
-        {state.navLinks.map((link, index) => {
+        {navLinks.map((link, index) => {
           return (
             <li
               style={{
@@ -47,7 +65,13 @@ const NavMenu: React.FC = () => {
               }}
               key={index}
             >
-              <NavButton key={index} label={link.label} navLink={link.navLink} onClick={onNavLinkClick}></NavButton>
+              <NavButton
+                key={index}
+                label={link.label}
+                navLink={link.navLink}
+                onClick={onNavLinkClick}
+                command={link.command}
+              ></NavButton>
             </li>
           );
         })}
