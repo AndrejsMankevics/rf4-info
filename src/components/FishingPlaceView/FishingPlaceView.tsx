@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase';
-import { conditionalClass } from '../../shared/helpers/classes.helpers';
 import { FishingMapMarker, FishingPlace } from '../../shared/types/game';
+import { conditionalClass } from '../../shared/utils/classes.utils';
 import { useAppStateValue } from '../../state/AppStateProvider';
 import FishingMap from './components/FishingMap/FishingMap';
 import MarkerInfo from './components/MarkerInfo/MarkerInfo';

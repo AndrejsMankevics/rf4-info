@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import If from '../../shared/components/If';
+import { UserUtils } from '../../shared/utils/user.utils';
 import { useAppStateValue } from '../../state/AppStateProvider';
 
 const useStyles = makeStyles({
@@ -34,6 +35,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const history = useHistory();
+  const [, dispatch] = useAppStateValue();
   const [{ isMobile }] = useAppStateValue();
 
   const [userName, setUserName] = useState('');
@@ -53,7 +55,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   };
 
   const register = () => {
-    if (!userName || userName.length < 6) {
+    if (!userName) {
       return;
     }
     auth
@@ -64,6 +66,12 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
             displayName: userName,
           })
           .then(() => {
+            if (auth.user) {
+              dispatch({
+                type: 'SET_USER',
+                payload: { user: UserUtils.parseUserData(auth.user) },
+              });
+            }
             props.onComplete();
             history.push('/home');
           })
@@ -90,35 +98,38 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       <div className={classes.loginForm}>
         {props.register ? <h1>Регистрация</h1> : <h1>Вход</h1>}
 
-        <If condition={props.register}>
+        <form>
+          <If condition={props.register}>
+            <TextField
+              required
+              className={classes.formField}
+              name="name"
+              label="Имя пользователя"
+              fullWidth={true}
+              onChange={(event) => setUserName(event.target.value)}
+            />
+          </If>
+
           <TextField
             required
             className={classes.formField}
-            name="name"
-            label="Имя пользователя"
+            name="email"
+            label="Электронная почта"
             fullWidth={true}
-            onChange={(event) => setUserName(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
-        </If>
+          <TextField
+            required
+            className={classes.formField}
+            name="password"
+            label="Пароль"
+            fullWidth={true}
+            type="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </form>
 
-        <TextField
-          required
-          className={classes.formField}
-          name="email"
-          label="Электронная почта"
-          fullWidth={true}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <TextField
-          required
-          className={classes.formField}
-          name="password"
-          label="Пароль"
-          fullWidth={true}
-          type="password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Button className={classes.submitBtn} variant="contained" onClick={handleSubmit}>
+        <Button type="submit" className={classes.submitBtn} variant="contained" onClick={handleSubmit}>
           {props.register ? <>Зарегистрироваться</> : <>Войти</>}
         </Button>
       </div>

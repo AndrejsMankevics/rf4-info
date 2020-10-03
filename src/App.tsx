@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import { auth, db } from './firebase';
 import { useRoutes } from './routes';
 import { useMediaQuery } from './shared/hooks/mediaQuery';
+import { UserUtils } from './shared/utils/user.utils';
 import { useAppStateValue } from './state/AppStateProvider';
 
 function App() {
@@ -18,12 +19,10 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log('THE USER IS >>> ', authUser);
-
       if (authUser) {
         dispatch({
           type: 'SET_USER',
-          payload: { user: authUser },
+          payload: { user: UserUtils.parseUserData(authUser) },
         });
       } else {
         dispatch({

@@ -1,10 +1,11 @@
 import { Dispatch } from 'react';
 import { Bait, FishingPlace } from '../shared/types/game';
+import { UserData } from '../shared/types/user';
 
 type ActionType = 'SET_USER' | 'SET_IS_MOBILE' | 'SET_BAITS' | 'SET_PLACES';
 
 export interface AppState {
-  user: firebase.User | null;
+  user: UserData | null;
   isMobile: boolean;
   places: FishingPlace[];
   baits: Bait[];

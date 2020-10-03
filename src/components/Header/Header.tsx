@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       </div>
       <div className="header-right-panel-wrapper">
         <If condition={!!user}>
-          <div className="header-user-name">{user?.displayName}</div>
+          <div className="header-user-name">{user?.name}</div>
           <NavSeparator />
         </If>
         <NavMenu />

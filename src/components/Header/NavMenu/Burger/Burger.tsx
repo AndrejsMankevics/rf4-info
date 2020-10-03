@@ -1,5 +1,5 @@
 import React from 'react';
-import { conditionalClass } from '../../../../shared/helpers/classes.helpers';
+import { conditionalClass } from '../../../../shared/utils/classes.utils';
 import './Burger.css';
 
 interface BurgerProps {
