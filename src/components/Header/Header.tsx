@@ -1,26 +1,27 @@
 import React from 'react';
+import If from '../../shared/components/If';
 import Logo from '../../shared/components/Logo';
+import { useAppStateValue } from '../../state/AppStateProvider';
 import './Header.css';
-import NavButton from './NavMenu/NavButton/NavButton';
 import NavMenu from './NavMenu/NavMenu';
 import NavSeparator from './NavMenu/NavSeparator/NavSeparator';
 
 const Header: React.FC = () => {
+  const [{ user }] = useAppStateValue();
+
   return (
-    <nav>
+    <div className="header-wrapper">
       <div className="logo-wrapper">
         <Logo size="small" width={36} height={36} />
       </div>
-      <NavSeparator />
-      <div className="main-nav-buttons">
-        <NavButton label="Главная" navLink="/home" onClick={() => {}}></NavButton>
-        <NavButton label="Водоёмы" navLink="/places" onClick={() => {}}></NavButton>
-      </div>
-      <NavSeparator />
-      <div className="navmenu-wrapper">
+      <div className="header-right-panel-wrapper">
+        <If condition={!!user}>
+          <div className="header-user-name">{user?.displayName}</div>
+          <NavSeparator />
+        </If>
         <NavMenu />
       </div>
-    </nav>
+    </div>
   );
 };
 

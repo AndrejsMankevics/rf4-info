@@ -1,9 +1,18 @@
+import { Dialog, withStyles } from '@material-ui/core';
+import MuiDialogContent from '@material-ui/core/DialogContent';
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../../firebase';
 import { useAppStateValue } from '../../../state/AppStateProvider';
+import LoginForm from '../../LoginForm/LoginForm';
 import Burger from './Burger/Burger';
 import NavButton from './NavButton/NavButton';
 import './NavMenu.css';
+
+const DialogContent = withStyles({
+  root: {
+    padding: '0 !important',
+  },
+})(MuiDialogContent);
 
 const NavMenu: React.FC = () => {
   const [{ isMobile }] = useAppStateValue();
@@ -11,16 +20,18 @@ const NavMenu: React.FC = () => {
 
   const [navLinks, setNavLinks] = useState<any[]>([]);
   const [activeBurger, setActiveBurger] = useState(false);
+  const [loginPopupVisible, setLogitPopupVisible] = useState(false);
+  const [registerPopupVisible, setRegisterPopupVisible] = useState(false);
 
   useEffect(() => {
-    setNavLinks(
-      user
+    setNavLinks([
+      { id: 4, label: 'Главная', navLink: '/home' },
+      { id: 5, label: 'Водоёмы', navLink: '/places' },
+      ...(user
         ? [
-            { id: 1, label: 'Home', navLink: '/home' },
-            { id: 2, label: 'Projects', navLink: '/home' },
             {
-              id: 5,
-              label: 'Logout',
+              id: 3,
+              label: 'Выйти',
               command: () => {
                 if (user) {
                   auth.signOut();
@@ -29,10 +40,10 @@ const NavMenu: React.FC = () => {
             },
           ]
         : [
-            { id: 3, label: 'Register', navLink: '/register' },
-            { id: 4, label: 'Log In', navLink: '/login' },
-          ]
-    );
+            { id: 2, label: 'Войти', command: () => setLogitPopupVisible(true) },
+            { id: 1, label: 'Регистрация', command: () => setRegisterPopupVisible(true) },
+          ]),
+    ]);
   }, [user]);
 
   const toggleActive = () => {
@@ -76,7 +87,20 @@ const NavMenu: React.FC = () => {
           );
         })}
       </ul>
+
       {isMobile ? <Burger active={activeBurger} onToggle={toggleActive} /> : null}
+
+      <Dialog open={loginPopupVisible} onClose={() => setLogitPopupVisible(false)} maxWidth="md" fullWidth={true}>
+        <DialogContent>
+          <LoginForm onComplete={() => setLogitPopupVisible(false)} register={false} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={registerPopupVisible} onClose={() => setRegisterPopupVisible(false)} maxWidth="md" fullWidth={true}>
+        <DialogContent>
+          <LoginForm onComplete={() => setRegisterPopupVisible(false)} register={true} />
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

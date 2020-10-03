@@ -2,7 +2,7 @@ import { IconButton, Paper, Tooltip } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import React from 'react';
 import If from '../../../../../shared/components/If';
-import { Bait } from '../../../../../shared/types';
+import { Bait } from '../../../../../shared/types/game';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import './BaitInfo.css';
 

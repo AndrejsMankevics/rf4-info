@@ -4,7 +4,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
-import { FishingMapMarker, FishingPlace } from '../../../../../shared/types';
+import { FishingMapMarker, FishingPlace } from '../../../../../shared/types/game';
 import './MarkerInfoHeader.css';
 
 interface MarkerInfoHeaderProps {

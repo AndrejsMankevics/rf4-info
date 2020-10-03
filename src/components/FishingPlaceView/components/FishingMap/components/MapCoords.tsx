@@ -1,6 +1,6 @@
 import L, { LeafletMouseEvent } from 'leaflet';
 import { LeafletContext, MapControl, withLeaflet } from 'react-leaflet';
-import { FishingPlace } from '../../../../../shared/types';
+import { FishingPlace } from '../../../../../shared/types/game';
 import './MapCoords.css';
 
 interface MapCoordsProps {

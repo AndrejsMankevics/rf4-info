@@ -6,7 +6,7 @@ import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
 import Control from 'react-leaflet-control';
 import If from '../../../../shared/components/If';
 import { conditionalClass } from '../../../../shared/helpers/classes.helpers';
-import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
+import { FishingMapMarker, FishingPlace } from '../../../../shared/types/game';
 import MapCoords from './components/MapCoords';
 import './FishingMap.css';
 import { markerAddIcon, markerIcon } from './icons';

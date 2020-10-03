@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Bait } from '../../../../../shared/types';
+import { Bait } from '../../../../../shared/types/game';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import BaitsGrid from './BaitsGrid';
 import './MarkerInfoBaits.css';

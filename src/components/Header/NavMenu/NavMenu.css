@@ -41,3 +41,7 @@
     transform: translateX(0px);
   }
 }
+
+.navmenu-login-popup-content {
+  padding: 0;
+}

@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import React from 'react';
 import If from '../../../../../shared/components/If';
 import { conditionalClass } from '../../../../../shared/helpers/classes.helpers';
-import { Bait } from '../../../../../shared/types';
+import { Bait } from '../../../../../shared/types/game';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import BaitInfo from './BaitInfo';
 import './BaitsGrid.css';

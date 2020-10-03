@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { Bait, FishingPlace } from '../shared/types';
+import { Bait, FishingPlace } from '../shared/types/game';
 
 type ActionType = 'SET_USER' | 'SET_IS_MOBILE' | 'SET_BAITS' | 'SET_PLACES';
 

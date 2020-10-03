@@ -1,4 +1,4 @@
-import { Button, Card, makeStyles, TextField } from '@material-ui/core';
+import { Button, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
@@ -23,37 +23,84 @@ const useStyles = makeStyles({
   },
   submitBtn: {
     marginTop: '30px',
-    width: '150px',
+    width: 'fit-content',
   },
 });
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  register: boolean;
+  onComplete: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = (props) => {
   const history = useHistory();
   const [{ isMobile }] = useAppStateValue();
 
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const classes = useStyles();
 
-  const handleSignIn = (event: React.MouseEvent) => {
-    event.preventDefault();
-
+  const login = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
+        props.onComplete();
         history.push('/home');
       })
       .catch((error) => alert(error.message));
   };
 
+  const register = () => {
+    if (!userName || userName.length < 6) {
+      return;
+    }
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        auth.user
+          ?.updateProfile({
+            displayName: userName,
+          })
+          .then(() => {
+            props.onComplete();
+            history.push('/home');
+          })
+          .catch((error) => alert(error.message));
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const handleSubmit = (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    if (props.register) {
+      register();
+    } else {
+      login();
+    }
+  };
+
   return (
-    <Card className={classes.root}>
+    <div className={classes.root}>
       <If condition={!isMobile}>
-        <img src="/assets/login_picture.jpg" alt="login"></img>
+        <img src="/assets/login_picture.jpg" alt="login" width="313px"></img>
       </If>
       <div className={classes.loginForm}>
-        <h1>Вход</h1>
+        {props.register ? <h1>Регистрация</h1> : <h1>Вход</h1>}
+
+        <If condition={props.register}>
+          <TextField
+            required
+            className={classes.formField}
+            name="name"
+            label="Имя пользователя"
+            fullWidth={true}
+            onChange={(event) => setUserName(event.target.value)}
+          />
+        </If>
+
         <TextField
           required
           className={classes.formField}
@@ -71,11 +118,11 @@ const LoginForm: React.FC = () => {
           type="password"
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button className={classes.submitBtn} variant="outlined" onClick={handleSignIn}>
-          Войти
+        <Button className={classes.submitBtn} variant="contained" onClick={handleSubmit}>
+          {props.register ? <>Зарегистрироваться</> : <>Войти</>}
         </Button>
       </div>
-    </Card>
+    </div>
   );
 };
 

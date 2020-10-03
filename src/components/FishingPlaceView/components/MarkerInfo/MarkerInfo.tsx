@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Hr from '../../../../shared/components/Hr';
-import { FishingMapMarker, FishingPlace } from '../../../../shared/types';
+import { FishingMapMarker, FishingPlace } from '../../../../shared/types/game';
 import MarkerInfoBaits from './components/MarkerInfoBaits';
 import MarkerInfoHeader from './components/MarkerInfoHeader';
 import './MarkerInfo.css';
