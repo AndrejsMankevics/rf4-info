@@ -1,6 +1,5 @@
 import { Button, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import If from '../../shared/components/If';
 import { UserUtils } from '../../shared/utils/user.utils';
@@ -34,7 +33,6 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
-  const history = useHistory();
   const [, dispatch] = useAppStateValue();
   const [{ isMobile }] = useAppStateValue();
 
@@ -49,7 +47,6 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
         props.onComplete();
-        history.push('/home');
       })
       .catch((error) => alert(error.message));
   };
@@ -73,7 +70,6 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
               });
             }
             props.onComplete();
-            history.push('/home');
           })
           .catch((error) => alert(error.message));
       })

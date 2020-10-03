@@ -4,7 +4,9 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
+import If from '../../../../../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../../../../../shared/types/game';
+import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import './MarkerInfoHeader.css';
 
 interface MarkerInfoHeaderProps {
@@ -20,6 +22,8 @@ interface MarkerInfoHeaderProps {
 }
 
 const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
+  const [{ user }] = useAppStateValue();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onValueChange(event.target.name, event.target.value);
   };
@@ -98,39 +102,42 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
           </>
         )}
       </div>
-      <div className="marker-info-header-actions">
-        {props.isEditable ? (
-          <>
-            <Tooltip title="Сохранить">
-              <IconButton
-                component="span"
-                disabled={validateCoordXField() || validateCoordYField() || validateNameField()}
-                onClick={() => props.onSaveChanges()}
-              >
-                <DoneIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Отмена">
-              <IconButton component="span" onClick={() => props.onCancelEdit()}>
-                <ClearIcon />
-              </IconButton>
-            </Tooltip>
-          </>
-        ) : (
-          <>
-            <Tooltip title="Изменить">
-              <IconButton component="span" onClick={() => props.onStartEdit()}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Удалить">
-              <IconButton component="span" onClick={() => props.onDelete()}>
-                <DeleteOutlineIcon />
-              </IconButton>
-            </Tooltip>
-          </>
-        )}
-      </div>
+
+      <If condition={!!user}>
+        <div className="marker-info-header-actions">
+          {props.isEditable ? (
+            <>
+              <Tooltip title="Сохранить">
+                <IconButton
+                  component="span"
+                  disabled={validateCoordXField() || validateCoordYField() || validateNameField()}
+                  onClick={() => props.onSaveChanges()}
+                >
+                  <DoneIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Отмена">
+                <IconButton component="span" onClick={() => props.onCancelEdit()}>
+                  <ClearIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          ) : (
+            <>
+              <Tooltip title="Изменить">
+                <IconButton component="span" onClick={() => props.onStartEdit()}>
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Удалить">
+                <IconButton component="span" onClick={() => props.onDelete()}>
+                  <DeleteOutlineIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </div>
+      </If>
     </div>
   );
 };
