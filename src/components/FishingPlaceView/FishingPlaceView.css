@@ -1,7 +1,7 @@
 .place-view-wrapper {
   display: flex;
   flex-grow: 1;
-  margin: 3vw;
+  padding: 10px 3vw 0 3vw;
 }
 
 .place-view-wrapper.mobile {

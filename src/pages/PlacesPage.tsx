@@ -7,17 +7,13 @@ import { useAppStateValue } from '../state/AppStateProvider';
 const PlacesPage: React.FC = () => {
   const [{ places }] = useAppStateValue();
 
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
 
   return (
     <>
       <Switch>
         <Route exact path={path}>
-          {places.map((place) => {
-            return (
-              <PlaceSelector img={place.selectorUrl} name={place.name} navLink={`${url}/${place.id}`} key={place.id} />
-            );
-          })}
+          <PlaceSelector places={places} />
         </Route>
         {places.map((place) => {
           return (

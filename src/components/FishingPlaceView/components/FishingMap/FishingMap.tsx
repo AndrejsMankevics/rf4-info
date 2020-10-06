@@ -7,6 +7,7 @@ import Control from 'react-leaflet-control';
 import If from '../../../../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types/game';
 import { conditionalClass } from '../../../../shared/utils/classes.utils';
+import { useAppStateValue } from '../../../../state/AppStateProvider';
 import MapCoords from './components/MapCoords';
 import './FishingMap.css';
 import { markerAddIcon, markerIcon } from './icons';
@@ -20,7 +21,11 @@ interface FishingMapProps {
 }
 
 const FishingMap: React.FC<FishingMapProps> = (props) => {
+  const [{ user }] = useAppStateValue();
   const mapRef = React.createRef<Map>();
+
+  const minZoom = Math.round(50 / (props.place.width - props.place.offsetX) + 1);
+  const [zoomRange] = useState([minZoom, minZoom + 2]);
 
   const [viewport] = useState({
     center: [props.place.height / 2, props.place.width / 2],
@@ -78,8 +83,8 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           ref={mapRef}
           maxBounds={bounds}
           zoomSnap={0.1}
-          minZoom={2}
-          maxZoom={4}
+          minZoom={zoomRange[0]}
+          maxZoom={zoomRange[1]}
           doubleClickZoom={false}
           onclick={handleMapClick}
           scrollWheelZoom={false}
@@ -103,15 +108,26 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           })}
 
           <MapCoords place={props.place} />
-          <Control position="topright">
-            <div className="custom-panel-wrapper">
-              <Tooltip title="Добавить">
-                <IconButton component="span" onClick={toggleAddMode} size="small">
-                  <RoomIcon fontSize="inherit" />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </Control>
+
+          <If condition={!!user}>
+            <Control position="topright">
+              <div className="custom-panel-wrapper">
+                <Tooltip title="Добавить">
+                  <IconButton component="span" onClick={toggleAddMode} size="small">
+                    <RoomIcon fontSize="inherit" />
+                  </IconButton>
+                </Tooltip>
+
+                {/* <div className="separator"></div>
+
+                <Tooltip title="Поделиться">
+                  <IconButton component="span" onClick={toggleAddMode} size="small">
+                    <ShareIcon fontSize="inherit" />
+                  </IconButton>
+                </Tooltip> */}
+              </div>
+            </Control>
+          </If>
         </Map>
       </div>
     </>

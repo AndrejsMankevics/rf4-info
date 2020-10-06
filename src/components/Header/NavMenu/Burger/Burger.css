@@ -1,18 +1,23 @@
-.burger {
-  cursor: pointer;
-  padding: 0 16px;
+.burger-wrapper {
+  margin: 0 16px;
+  height: 26px;
 }
 
-.burger div {
+.burger-wrapper .icon-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger-wrapper .icon-container div {
   width: 20px;
   height: 3px;
   background-color: var(--main-text-light-color);
-  margin: 5px;
+  margin: 2px;
   transition: all 0.3s ease;
 }
 
 .active .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
+  transform: rotate(-45deg) translate(-5px, 5px);
 }
 
 .active .line2 {
@@ -20,5 +25,5 @@
 }
 
 .active .line3 {
-  transform: rotate(45deg) translate(-5px, -6px);
+  transform: rotate(45deg) translate(-5px, -5px);
 }

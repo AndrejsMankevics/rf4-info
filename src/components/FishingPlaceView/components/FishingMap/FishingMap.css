@@ -28,9 +28,15 @@
 }
 
 .custom-panel-wrapper {
+  display: flex;
   background: #fff;
   border-radius: 4px;
   padding: 5px;
+}
+
+.custom-panel-wrapper .separator {
+  margin: -5px 5px;
+  border-left: 1px solid var(--main-border-color);
 }
 
 .map-edit-overlay {
