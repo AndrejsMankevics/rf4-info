@@ -1,9 +1,9 @@
 import { Button, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import { auth } from '../../firebase';
-import If from '../../shared/components/If';
-import { UserUtils } from '../../shared/utils/user.utils';
-import { useAppStateValue } from '../../state/AppStateProvider';
+import { auth } from '../../../../firebase';
+import If from '../../../../shared/components/If';
+import { UserUtils } from '../../../../shared/utils/user.utils';
+import { useAppStateValue } from '../../../../state/AppStateProvider';
 
 const useStyles = makeStyles({
   root: {

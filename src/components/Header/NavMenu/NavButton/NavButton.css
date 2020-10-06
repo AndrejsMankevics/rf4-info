@@ -38,4 +38,5 @@
 .mobile .nav-button-wrapper a:hover,
 .mobile .nav-button-wrapper span:hover {
   background: linear-gradient(225deg, rgba(0, 255, 119, 0.18), rgba(49, 151, 239, 0.18));
+  color: var(--main-text-color);
 }

@@ -18,6 +18,10 @@
   align-items: center;
 }
 
+.header-right-panel-wrapper.mobile {
+  flex-direction: row-reverse;
+}
+
 .header-user-name {
   padding: 0 16px;
 }

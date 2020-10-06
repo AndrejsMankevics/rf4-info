@@ -52,7 +52,6 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
       ...editableMarker,
       [field]: value,
     });
-    console.log(editableMarker);
   };
 
   if (!props.marker) {

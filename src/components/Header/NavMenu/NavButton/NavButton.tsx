@@ -10,22 +10,17 @@ interface NavButtonProps {
 }
 
 const NavButton: React.FC<NavButtonProps> = (props) => {
-  const handleSpanClick = (event: React.MouseEvent) => {
-    props.onClick(event);
-    props.command && props.command();
-  };
-
   return (
     <div className="nav-button-wrapper">
       {!!props.navLink ? (
         <>
-          <NavLink onClick={(event) => props.onClick(event)} to={props.navLink}>
+          <NavLink onClick={props.onClick} to={props.navLink}>
             {props.label}
           </NavLink>
         </>
       ) : (
         <>
-          <span onClick={handleSpanClick}>{props.label}</span>
+          <span onClick={props.onClick}>{props.label}</span>
         </>
       )}
     </div>

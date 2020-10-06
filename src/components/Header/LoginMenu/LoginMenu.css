@@ -1,41 +1,35 @@
-.navLinks-wrapper.active {
+.login-menu-wrapper.active {
   z-index: 2;
 }
 
-.navLinks {
+.login-menu-actions {
   display: flex;
-}
-
-.navLinks li {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  height: 50px;
-}
-
-.navLinks.mobile {
   position: absolute;
-  right: -40%;
+  right: -200px;
   top: 54px;
   background-color: white;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 200px;
   box-shadow: 0 4px 12px 0 hsla(0, 0%, 53.3%, 0.2);
   transition: transform 0.5s ease-in;
   z-index: 10;
 }
 
-.navLinks-wrapper.active .navLinks.mobile {
-  transform: translateX(-100%);
-}
-
-.navLinks.mobile li {
+.login-menu-actions li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 50px;
   opacity: 0;
   width: 100%;
 }
 
-@keyframes navLinkFade {
+.login-menu-actions.active {
+  transform: translateX(-100%);
+}
+
+@keyframes loginMenuFade {
   from {
     opacity: 0;
     transform: translateX(50px);
@@ -46,7 +40,7 @@
   }
 }
 
-.navLinks-overlay {
+.login-menu-overlay {
   position: fixed;
   top: 0;
   bottom: 0;

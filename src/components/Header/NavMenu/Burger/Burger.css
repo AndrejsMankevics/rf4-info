@@ -6,7 +6,7 @@
 .burger div {
   width: 20px;
   height: 3px;
-  background-color: #e2e2e2;
+  background-color: var(--main-text-light-color);
   margin: 5px;
   transition: all 0.3s ease;
 }

@@ -7,6 +7,7 @@ export class UserUtils {
       id: authUser.uid,
       name: authUser.displayName || '',
       email: authUser.email || '',
+      photoURL: authUser.photoURL || '',
     };
   };
 }
