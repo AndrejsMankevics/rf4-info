@@ -1,5 +1,5 @@
 import { Card, Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { FishingPlace } from '../../shared/types/game';
 import { conditionalClass } from '../../shared/utils/classes.utils';
@@ -13,6 +13,16 @@ interface PlaceSelectorProps {
 const PlaceSelector: React.FC<PlaceSelectorProps> = (props) => {
   const { url } = useRouteMatch();
 
+  const [sorted, setSorted] = useState<FishingPlace[]>([]);
+
+  useEffect(() => {
+    const order = ['dachniy_prud', 'komarinoe', 'vyunok', 'ostrog', 'kuori'];
+    const ordered = order
+      .map((name) => props.places.find((place) => place.id === name))
+      .filter((place) => !!place) as FishingPlace[];
+    setSorted(ordered);
+  }, [props.places, setSorted]);
+
   const [{ isMobile }] = useAppStateValue();
 
   return (
@@ -21,8 +31,8 @@ const PlaceSelector: React.FC<PlaceSelectorProps> = (props) => {
         <h1>Водоёмы</h1>
       </div>
 
-      <Grid container className="grid-container" spacing={isMobile ? 2 : 5}>
-        {props.places.map((place) => (
+      <Grid container spacing={isMobile ? 2 : 3}>
+        {sorted.map((place) => (
           <Grid item className="grid-item" key={place.id}>
             <Card className="place-selector-icon">
               <NavLink to={`${url}/${place.id}`}>

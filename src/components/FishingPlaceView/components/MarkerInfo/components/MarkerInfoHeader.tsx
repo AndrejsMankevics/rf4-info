@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 import If from '../../../../../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../../../../../shared/types/game';
+import { TimeUtils } from '../../../../../shared/utils/time.utils';
 import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import './MarkerInfoHeader.css';
 
@@ -53,6 +54,10 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
   return (
     <div className="marker-info-header-wrapper">
       <div className="marker-info-header-content">
+        <If condition={!!props.marker.timestamp}>
+          <div className="marker-timestamp">{`${TimeUtils.formatDateTime(new Date(props.marker.timestamp))}`}</div>
+        </If>
+
         {props.isEditable ? (
           <>
             <form className="marker-info-form-wrapper" autoComplete="off" onSubmit={() => props.onSaveChanges()}>
@@ -86,7 +91,7 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
                 name="name"
                 fullWidth={true}
                 value={props.editableMarker.name}
-                label="Название точки"
+                label="Описание точки"
                 multiline={true}
                 error={validateNameField()}
                 onChange={handleChange}

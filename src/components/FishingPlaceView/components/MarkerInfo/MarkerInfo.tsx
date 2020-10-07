@@ -39,7 +39,10 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
   const onSaveChangesHandle = () => {
     if (editableMarker.baits && editableMarker.name && editableMarker.x && editableMarker.y) {
       setIsEditable(false);
-      props.onMarkerEdit(editableMarker as FishingMapMarker);
+      props.onMarkerEdit({
+        ...(editableMarker as FishingMapMarker),
+        timestamp: new Date().getTime(),
+      });
     }
   };
 

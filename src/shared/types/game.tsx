@@ -17,6 +17,7 @@ export interface FishingMapMarker {
   y: number;
   name: string;
   baits: string[];
+  timestamp: number;
 }
 
 export interface Bait {

@@ -2,25 +2,24 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px 10vw 0 10vw;
+  padding: 0 10vw;
 }
 
 .place-selector-wrapper .title {
-  text-align: center;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
-.place-selector-wrapper .grid-container {
-  justify-content: center;
-}
-
 .place-selector-wrapper .grid-item {
-  width: 50%;
+  flex-grow: 1;
+  flex-basis: 350px;
+  max-width: 50%;
   height: 230px;
 }
 
 .mobile.place-selector-wrapper .grid-item {
   width: 100%;
+  max-width: none;
   height: 160px;
 }
 

@@ -23,6 +23,7 @@ class MapCoords extends MapControl<MapCoordsProps> {
     const MapCoords = L.Control.extend({
       onAdd: () => {
         this.panelDiv = L.DomUtil.create('div', 'coords-panel-wrapper');
+        this.panelDiv.innerHTML = '<h2>0:0</h2>';
         return this.panelDiv;
       },
     });

@@ -17,6 +17,12 @@
   margin-top: -10px;
 }
 
+.marker-info-header-content .marker-timestamp {
+  padding-bottom: 16px;
+  font-size: 11px;
+  font-style: italic;
+}
+
 .marker-info-form-wrapper {
   display: flex;
   flex-direction: column;
