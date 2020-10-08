@@ -1,6 +1,7 @@
 export interface FishingPlace {
   id: string;
   name: string;
+  lvl: number;
   mapUrl: string;
   selectorUrl: string;
   width: number;

@@ -32,25 +32,36 @@
 .place-selector-icon img {
   object-fit: cover; /* Do not scale the image */
   object-position: center; /* Center the image within the element */
+  transition: transform 0.2s ease-in-out;
 }
 
-.place-selector-icon .place-name {
+.place-selector-icon:hover img {
+  transform: scale(1.1);
+}
+
+.place-selector-icon .place-details {
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
+  height: 30%;
   bottom: 0;
   left: 0;
   right: 0;
-  color: white;
+  color: var(--main-text-light-color);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  opacity: 0.5;
-  transition: all 0.2s ease-in;
+  margin-top: auto;
+  padding: 10px 20px;
+  background: linear-gradient(to top, rgba(40, 40, 40, 0.7) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(0, 0, 0, 0) 100%);
+  transition: color 0.1s ease-in-out;
 }
 
-.place-selector-icon .place-name:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.4);
+.place-details .place-name,
+.place-details .place-lvl {
+  display: flex;
+  margin-top: auto;
+}
+
+.place-selector-icon:hover .place-details {
+  color: white;
 }
