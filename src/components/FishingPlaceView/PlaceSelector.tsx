@@ -54,8 +54,8 @@ const PlaceSelector: React.FC<PlaceSelectorProps> = (props) => {
               <NavLink to={`${url}/${place.id}`}>
                 <img src={place.selectorUrl} alt={place.name} width="100%" height="100%"></img>
                 <div className="place-details">
-                  <span className="place-name">{place.name}</span>
-                  <span className="place-lvl">
+                  <span className="detail">{place.name}</span>
+                  <span className="detail place-lvl">
                     <LockIcon style={{ opacity: 0.85 }} fontSize="small" />
                     {place.lvl}
                   </span>

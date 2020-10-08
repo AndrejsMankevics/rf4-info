@@ -24,5 +24,6 @@ export interface FishingMapMarker {
 export interface Bait {
   id: string;
   name: string;
-  url: string;
+  spriteX: number;
+  spriteY: number;
 }

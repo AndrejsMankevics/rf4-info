@@ -28,7 +28,15 @@ const MarkerInfoBait: React.FC<MarkerInfoBaitProps> = (props) => {
   return (
     <Paper className="bait-info-paper">
       <div className={baitWrapperClasses.join(' ')} onClick={props.selectable ? props.onSelect : undefined}>
-        <img src={props.bait.url} alt={props.bait.name} width={'100px'} height={'100px'}></img>
+        <div
+          style={{
+            background: `url('/assets/baits/baits_sprites.png') 
+            ${props.bait.spriteX * -100}px 
+            ${props.bait.spriteY * -100}px`,
+            width: 100,
+            height: 100,
+          }}
+        />
         <div className="bait-description">{props.bait.name}</div>
         <If condition={props.removable}>
           <div className="remove-bait-btn-wrapper">
