@@ -7,7 +7,6 @@ import React from 'react';
 import If from '../../../../../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../../../../../shared/types/game';
 import { TimeUtils } from '../../../../../shared/utils/time.utils';
-import { useAppStateValue } from '../../../../../state/AppStateProvider';
 import './MarkerInfoHeader.css';
 
 interface MarkerInfoHeaderProps {
@@ -15,6 +14,7 @@ interface MarkerInfoHeaderProps {
   place: FishingPlace;
   editableMarker: Partial<FishingMapMarker>;
   isEditable: boolean;
+  allowActions: boolean;
   onValueChange: (field: string, value: any) => void;
   onStartEdit: () => void;
   onDelete: () => void;
@@ -23,8 +23,6 @@ interface MarkerInfoHeaderProps {
 }
 
 const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
-  const [{ user }] = useAppStateValue();
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onValueChange(event.target.name, event.target.value);
   };
@@ -108,7 +106,7 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
         )}
       </div>
 
-      <If condition={!!user}>
+      <If condition={props.allowActions}>
         <div className="marker-info-header-actions">
           {props.isEditable ? (
             <>

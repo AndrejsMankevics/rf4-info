@@ -10,15 +10,27 @@
   white-space: nowrap;
 }
 
+.place-header-wrapper.mobile {
+  flex-direction: column;
+}
+
 .place-header-name {
   font-family: 'Lobster', cursive;
   font-size: 28px;
   font-weight: 400;
   letter-spacing: 0.3px;
-  padding-right: 10px;
+  padding: 10px;
+  padding-left: 0;
+}
+
+.mobile .place-header-name {
+  padding-top: 10px;
+  padding-right: 0;
+  font-size: 24px;
 }
 
 .place-header-links-wrapper {
+  width: 100%;
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -37,6 +49,10 @@
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.mobile .place-header-link {
+  padding: 10px 20px;
 }
 
 .place-header-link:hover,

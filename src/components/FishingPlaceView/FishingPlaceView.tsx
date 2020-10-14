@@ -1,86 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../../firebase';
-import { FishingMapMarker, FishingPlace } from '../../shared/types/game';
-import { conditionalClass } from '../../shared/utils/classes.utils';
+import If from '../../shared/components/If';
+import { FishingPlace } from '../../shared/types/game';
 import { useAppStateValue } from '../../state/AppStateProvider';
-import FishingMap from './components/FishingMap/FishingMap';
-import MarkerInfo from './components/MarkerInfo/MarkerInfo';
 import './FishingPlaceView.css';
-import PlaceHeader from './PlaceHeader';
+import MarkersView from './MarkersView';
+import PlaceHeader, { PlaceViewLink } from './PlaceHeader';
 
 interface FishingPlaceViewProps {
   place: FishingPlace;
+  markerId?: string;
 }
 
 const FishingPlaceView: React.FC<FishingPlaceViewProps> = (props) => {
-  const [{ isMobile }] = useAppStateValue();
+  const [{ user }] = useAppStateValue();
 
-  const [markers, setMarkers] = useState<FishingMapMarker[]>([]);
-  const [selectedMarker, setSelectedMarker] = useState<FishingMapMarker | null>(null);
-  const [newMarker, setNewMarker] = useState<FishingMapMarker | null>(null);
+  const [activeLink, setActiveLink] = useState<PlaceViewLink>('Точки');
 
   useEffect(() => {
-    db.collection('markers')
-      .where('placeId', '==', props.place.id)
-      .onSnapshot((snapshot) => {
-        setMarkers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as FishingMapMarker[]);
-      });
-  }, [props.place]);
-
-  const selectMarkerHandle = (marker: FishingMapMarker | null) => {
-    setSelectedMarker(marker);
-  };
-
-  const handleMarkerEdit = (marker: FishingMapMarker) => {
-    if (!marker.id) {
-      // reset markers selections since we have just created a new one
-      setNewMarker(null);
-      setSelectedMarker(null);
-      const { id, ...rest } = marker;
-      db.collection('markers').add(rest);
-    } else {
-      setSelectedMarker(marker);
-      db.collection('markers').doc(marker.id).set(marker);
+    // reset to default link, since the current active link is not available
+    if (!user && activeLink === 'Мои точки') {
+      setActiveLink('Точки');
     }
-  };
+  }, [user, activeLink]);
 
-  const handleMarkerDelete = (id: string) => {
-    if (!!id) {
-      db.collection('markers').doc(id).delete();
+  useEffect(() => {
+    if (!!props.markerId) {
+      setActiveLink('Просмотр точки');
     }
-    setNewMarker(null);
-    setSelectedMarker(null);
-  };
+  }, [props.markerId]);
 
-  const handleSetNewMarker = (marker: FishingMapMarker | null) => {
-    setNewMarker(marker);
-    setSelectedMarker(marker);
+  const handleLinkClick = (link: PlaceViewLink) => {
+    setActiveLink(link);
   };
 
   return (
     <>
       <PlaceHeader
         name={props.place.name}
-        links={['Точки', 'Вся рыба', 'Цены в магазине', 'Кафе', 'Ремонт']}
-        activeLink="Точки"
+        links={
+          activeLink === 'Просмотр точки'
+            ? []
+            : user
+            ? ['Точки', 'Мои точки', 'Вся рыба', 'Цены в магазине', 'Кафе', 'Ремонт']
+            : ['Точки', 'Вся рыба', 'Цены в магазине', 'Кафе', 'Ремонт']
+        }
+        activeLink={activeLink}
+        onLinkClick={handleLinkClick}
       />
-      <div className={conditionalClass('place-view-wrapper', 'mobile', isMobile)}>
-        <div className="fishing-map-wrapper">
-          <FishingMap
-            place={props.place}
-            markers={markers}
-            onSelectMarker={selectMarkerHandle}
-            newMarker={newMarker}
-            onSetNewMarker={handleSetNewMarker}
-          />
-        </div>
-        <MarkerInfo
-          marker={selectedMarker}
-          place={props.place}
-          onMarkerEdit={handleMarkerEdit}
-          onMarkerDelete={handleMarkerDelete}
-        />
-      </div>
+
+      <If condition={activeLink === 'Точки'}>
+        <MarkersView place={props.place} viewType="public" />
+      </If>
+
+      <If condition={activeLink === 'Мои точки' && !!user}>
+        <MarkersView place={props.place} viewType="private" />
+      </If>
+
+      <If condition={activeLink === 'Просмотр точки' && !!user}>
+        <MarkersView place={props.place} viewType="view" viewMarkerId={props.markerId} />
+      </If>
     </>
   );
 };

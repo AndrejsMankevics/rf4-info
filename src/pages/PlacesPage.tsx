@@ -17,6 +17,15 @@ const PlacesPage: React.FC = () => {
         </Route>
         {places.map((place) => {
           return (
+            <Route
+              path={`${path}/${place.id}/:markerId`}
+              key={`${place.id}_view`}
+              render={({ match }) => <FishingPlaceView place={place} markerId={match.params.markerId} />}
+            ></Route>
+          );
+        })}
+        {places.map((place) => {
+          return (
             <Route path={`${path}/${place.id}`} key={place.id}>
               <FishingPlaceView place={place} />
             </Route>

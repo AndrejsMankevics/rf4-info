@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Hr from '../../../../shared/components/Hr';
 import { FishingMapMarker, FishingPlace } from '../../../../shared/types/game';
+import { useAppStateValue } from '../../../../state/AppStateProvider';
 import MarkerInfoBaits from './components/MarkerInfoBaits';
 import MarkerInfoHeader from './components/MarkerInfoHeader';
 import './MarkerInfo.css';
 
 interface MarkerInfoProps {
+  readonly: boolean;
   marker: FishingMapMarker | null;
   place: FishingPlace;
   onMarkerEdit: (marker: FishingMapMarker) => void;
@@ -13,6 +15,8 @@ interface MarkerInfoProps {
 }
 
 const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
+  const [{ user }] = useAppStateValue();
+
   const [isEditable, setIsEditable] = useState<boolean>(false);
   const [editableMarker, setEditableMarker] = useState<Partial<FishingMapMarker>>(props.marker || {});
 
@@ -63,6 +67,7 @@ const MarkerInfo: React.FC<MarkerInfoProps> = (props) => {
   return (
     <div className="map-info-wrapper">
       <MarkerInfoHeader
+        allowActions={!!user && !props.readonly}
         marker={props.marker}
         place={props.place}
         editableMarker={editableMarker}

@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import RoomIcon from '@material-ui/icons/Room';
 import { CRS, LatLngBoundsLiteral, LeafletMouseEvent } from 'leaflet';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
 import Control from 'react-leaflet-control';
 import If from '../../../../shared/components/If';
@@ -13,6 +13,7 @@ import './FishingMap.css';
 import { markerAddIcon, markerIcon } from './icons';
 
 interface FishingMapProps {
+  readonly: boolean;
   place: FishingPlace;
   markers: FishingMapMarker[];
   newMarker: FishingMapMarker | null;
@@ -38,9 +39,9 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
     [props.place.height, props.place.width],
   ];
 
-  const whenReady = () => {
-    mapRef?.current?.leafletElement.fitBounds(bounds);
-  };
+  useEffect(() => {
+    mapRef?.current?.leafletElement.fitBounds(bounds, { animate: false });
+  }, [props.place, mapRef, bounds]);
 
   const toggleAddMode = () => {
     setAddModeEnabled(!addModeEnabled);
@@ -56,6 +57,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
         x: Math.round(event.latlng.lng) + props.place.offsetX,
         y: Math.round(event.latlng.lat) + props.place.offsetY,
         timestamp: 0,
+        owner: 'none',
       });
       setAddModeEnabled(false);
     } else {
@@ -89,7 +91,6 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           doubleClickZoom={false}
           onclick={handleMapClick}
           scrollWheelZoom={false}
-          whenReady={() => whenReady()}
         >
           <ImageOverlay url={props.place.mapUrl} bounds={bounds} />
           {(props.newMarker ? [...props.markers, props.newMarker] : props.markers).map((marker, index) => {
@@ -110,7 +111,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
 
           <MapCoords place={props.place} />
 
-          <If condition={!!user}>
+          <If condition={!!user && !props.readonly}>
             <Control position="topright">
               <div className="custom-panel-wrapper">
                 <Tooltip title="Добавить">
@@ -118,14 +119,6 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
                     <RoomIcon fontSize="inherit" />
                   </IconButton>
                 </Tooltip>
-
-                {/* <div className="separator"></div>
-
-                <Tooltip title="Поделиться">
-                  <IconButton component="span" onClick={toggleAddMode} size="small">
-                    <ShareIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip> */}
               </div>
             </Control>
           </If>
