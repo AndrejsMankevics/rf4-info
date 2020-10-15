@@ -15,7 +15,6 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
   const [{ baits }] = useAppStateValue();
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-
   const [selectedBaits, setSelectedBaits] = useState<Bait[]>([]);
 
   useEffect(() => {
@@ -59,6 +58,7 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
           addOption={props.isEditable}
           onAddClick={handleOpenDialog}
         ></BaitsGrid>
+
         <Dialog
           open={dialogOpen}
           onClose={handleCloseDialog}
@@ -69,12 +69,26 @@ const MarkerInfoBaits: React.FC<MarkerInfoBaitsProps> = (props) => {
           transitionDuration={{ enter: 200, exit: 0 }}
         >
           <DialogTitle id="scroll-dialog-title">Выбор наживки</DialogTitle>
+
           <DialogContent dividers={true}>
-            <BaitsGrid
-              baits={baits.filter((b) => !props.baits.includes(b.id))}
-              selectable={true}
-              onSelect={handleAdd}
-            ></BaitsGrid>
+            {['peps'].map(() => {
+              const availableBaits = baits.filter((b) => !props.baits.includes(b.id));
+              const types = Array.from(new Set(availableBaits.map((b) => b.type))).filter((type) => !!type);
+
+              return types.map((type) => {
+                return (
+                  <div key={type}>
+                    <h3 className="bait-type-name">{type}</h3>
+
+                    <BaitsGrid
+                      baits={baits.filter((b) => !props.baits.includes(b.id)).filter((b) => b.type === type)}
+                      selectable={true}
+                      onSelect={handleAdd}
+                    ></BaitsGrid>
+                  </div>
+                );
+              });
+            })}
           </DialogContent>
         </Dialog>
       </div>

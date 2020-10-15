@@ -14,3 +14,8 @@
   flex-wrap: wrap;
   margin-top: 15px;
 }
+
+.bait-type-name {
+  margin: 10px 0 5px 0;
+  display: block;
+}

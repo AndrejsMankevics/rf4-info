@@ -27,4 +27,5 @@ export interface Bait {
   name: string;
   spriteX: number;
   spriteY: number;
+  type: string;
 }
