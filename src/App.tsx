@@ -4,9 +4,11 @@ import './App.css';
 import Header from './components/Header/Header';
 import { auth, db } from './firebase';
 import { useRoutes } from './routes';
+import SnackBar from './shared/components/SnackBar';
 import { useMediaQuery } from './shared/hooks/mediaQuery';
 import { UserUtils } from './shared/utils/user.utils';
 import { useAppStateValue } from './state/AppStateProvider';
+import { SnackBarStateProvider } from './state/SnackBarProvider';
 
 function App() {
   const [, dispatch] = useAppStateValue();
@@ -47,10 +49,14 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <Router>
-        <Header />
-        <div className="router-container">{routes}</div>
-      </Router>
+      <SnackBarStateProvider>
+        <Router>
+          <Header />
+          <div className="router-container">{routes}</div>
+        </Router>
+
+        <SnackBar />
+      </SnackBarStateProvider>
     </div>
   );
 }

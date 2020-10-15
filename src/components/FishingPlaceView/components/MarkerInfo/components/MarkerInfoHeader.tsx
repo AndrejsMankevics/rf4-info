@@ -3,10 +3,13 @@ import ClearIcon from '@material-ui/icons/Clear';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DoneIcon from '@material-ui/icons/Done';
 import EditIcon from '@material-ui/icons/Edit';
+import ShareIcon from '@material-ui/icons/Share';
+import copy from 'copy-to-clipboard';
 import React from 'react';
 import If from '../../../../../shared/components/If';
 import { FishingMapMarker, FishingPlace } from '../../../../../shared/types/game';
 import { TimeUtils } from '../../../../../shared/utils/time.utils';
+import { useSnackBarState } from '../../../../../state/SnackBarProvider';
 import './MarkerInfoHeader.css';
 
 interface MarkerInfoHeaderProps {
@@ -23,6 +26,8 @@ interface MarkerInfoHeaderProps {
 }
 
 const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
+  const { openSnackBar } = useSnackBarState();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onValueChange(event.target.name, event.target.value);
   };
@@ -47,6 +52,11 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
 
   const validateNameField = (): boolean => {
     return !props.editableMarker.name || String(props.editableMarker.name).length > 200;
+  };
+
+  const handleShare = () => {
+    copy(`${window.location.origin}/places/${props.place.id}/${props.marker.id}`);
+    openSnackBar('Ссылка скопирована', 'success');
   };
 
   return (
@@ -135,6 +145,11 @@ const MarkerInfoHeader: React.FC<MarkerInfoHeaderProps> = (props) => {
               <Tooltip title="Удалить">
                 <IconButton component="span" onClick={() => props.onDelete()}>
                   <DeleteOutlineIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Поделиться">
+                <IconButton component="span" onClick={handleShare}>
+                  <ShareIcon />
                 </IconButton>
               </Tooltip>
             </>

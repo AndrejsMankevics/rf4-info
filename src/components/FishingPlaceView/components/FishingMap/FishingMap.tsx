@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@material-ui/core';
 import RoomIcon from '@material-ui/icons/Room';
 import { CRS, LatLngBoundsLiteral, LeafletMouseEvent } from 'leaflet';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ImageOverlay, Map, Marker, Popup, Viewport } from 'react-leaflet';
 import Control from 'react-leaflet-control';
 import If from '../../../../shared/components/If';
@@ -39,9 +39,9 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
     [props.place.height, props.place.width],
   ];
 
-  useEffect(() => {
+  const whenReady = () => {
     mapRef?.current?.leafletElement.fitBounds(bounds, { animate: false });
-  }, [props.place, mapRef, bounds]);
+  };
 
   const toggleAddMode = () => {
     setAddModeEnabled(!addModeEnabled);
@@ -91,6 +91,7 @@ const FishingMap: React.FC<FishingMapProps> = (props) => {
           doubleClickZoom={false}
           onclick={handleMapClick}
           scrollWheelZoom={false}
+          whenReady={whenReady}
         >
           <ImageOverlay url={props.place.mapUrl} bounds={bounds} />
           {(props.newMarker ? [...props.markers, props.newMarker] : props.markers).map((marker, index) => {
